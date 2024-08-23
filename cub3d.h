@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/07/24 09:50:55 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/07/31 09:52:18 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 
 # define HEIGHT 420
 # define WIDTH 420
-# define FOV 42
-# define OFFSET 1
+# define FOV 0.5
+# define OFFSET 0.01
+# define STEP 0.01
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 
 # include "MLX42/include/MLX42/MLX42.h"
 # include "MLibft/libft.h"
@@ -59,5 +61,12 @@ void	destroy_cub(t_cub map);
 
 // Player functions
 t_player *get_player(void);
+void	draw_fov(t_player p, t_cub map, mlx_t *win, mlx_image_t *img);
+
+// Raycaster
+void	cast_ray(t_player p, float delta, t_cub map, mlx_t *win, mlx_image_t *img);
+float	normalize(float angle);
+
+
 
 #endif

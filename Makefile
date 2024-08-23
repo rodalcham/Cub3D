@@ -6,7 +6,7 @@
 #    By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/23 11:29:41 by rchavez@stu       #+#    #+#              #
-#    Updated: 2024/07/23 17:31:27 by rchavez@stu      ###   ########.fr        #
+#    Updated: 2024/07/29 18:36:15 by rchavez@stu      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ LIBFT_F = MLibft
 
 LIBFT = $(LIBFT_F)/libft.a
 
-CFILES = main.c maps.c maps_fill.c
+CFILES = main.c maps.c maps_fill.c player.c rays.c
 
 OFILES = $(CFILES:%.c=$(O_F)/%.o)
 

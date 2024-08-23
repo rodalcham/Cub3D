@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 14:16:54 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/07/25 10:33:43 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/07/30 10:37:00 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	verify_color(char *str)
 			i++;
 		if (str[i] && str[i] != ',' && str[i] != ';' && str[i] != ':' && str[i] != '-')
 			return (-1);
-		printf("\nDEBUG\n");
 		while (str[i] && is_spc(str[i]))
 			i++;
 		if (!str[i])
@@ -112,7 +111,8 @@ int	extract_textures(t_cub *map, int fd)
 			j++;
 		i += line_fill(&line[j], map);
 		free_t(line);
-		line = get_next_line(fd);
+		if (i < 6)
+			line = get_next_line(fd);
 	}
 	if (i < 6)
 		return (-1);

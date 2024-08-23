@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/07/25 10:32:59 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/07/30 11:37:13 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int main(void)
 {
-	mlx_t	*win;
-	t_cub	map;
+	mlx_t		*win;
+	mlx_image_t	*img;
+	t_cub		map;
+	t_player	p;
 
 	if (cub_init(&map, "map.cub") < 0)
 	{
@@ -28,13 +30,24 @@ int main(void)
 		write(2, "MLX error\n", 10);
 		return (1);
 	}
-	printf("\nMAP TEXTURES:\n\n");
-	printf("north: %s\n", map.north);
-	printf("east: %s\n", map.east);
-	printf("west: %s\n", map.west);
-	printf("south: %s\n", map.south);
-	printf("floor: %s\n", map.floor);
-	printf("ceiling: %s\n", map.ceiling);
+	img = mlx_new_image(win, WIDTH, HEIGHT);
+	if (!img)
+	{
+		write(2, "MLX error\n", 10);
+		return (1);
+	}
+	if (mlx_image_to_window(win, img, 0 ,0) < 0)
+	{
+		write(2, "MLX error\n", 10);
+		return (1);
+	}
+	p.x = 5;
+	p.y = 5;
+	p.delta = 1;
+	// validate map walls and paths, colours
+	// set player pos
+	// cast rays
+	draw_fov(p, map, win, img);
 	mlx_loop(win);
 	mlx_terminate(win);
 	destroy_cub(map);
