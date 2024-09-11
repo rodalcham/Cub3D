@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 14:16:54 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/07/30 10:37:00 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/11 15:36:36 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,20 @@ char	*line_skip(size_t toskip, char *line)
 	return (&line[i]);
 }
 
-int	line_fill(char *line, t_cub *map)
+int	line_fill(char *line, t_object *obj)
 {
 	if (!ft_strncmp(line, "NO", 2))
-		map->north = ft_strdup(line_skip(2, line));
+		obj->north = ft_strdup(line_skip(2, line));
 	else if (!ft_strncmp(line, "SO", 2))
-		map->south = ft_strdup(line_skip(2, line));
+		obj->south = ft_strdup(line_skip(2, line));
 	else if (!ft_strncmp(line, "EA", 2))
-		map->east = ft_strdup(line_skip(2, line));
+		obj->east = ft_strdup(line_skip(2, line));
 	else if (!ft_strncmp(line, "WE", 2))
-		map->west = ft_strdup(line_skip(2, line));
+		obj->west = ft_strdup(line_skip(2, line));
 	else if (!ft_strncmp(line, "F", 1))
-		map->floor = ft_strdup(line_skip(1, line));
+		obj->floor = ft_strdup(line_skip(1, line));
 	else if (!ft_strncmp(line, "C", 1))
-		map->ceiling = ft_strdup(line_skip(1, line));
+		obj->ceiling = ft_strdup(line_skip(1, line));
 	else
 		return (0);
 	return (1);
@@ -83,18 +83,19 @@ int	verify_color(char *str)
 		return (-1);
 	return (0);
 }
-int	validate_textures(t_cub *map)
+
+int	validate_textures(t_object *obj)
 {
-	if (!ft_strlen(map->north) || !ft_strlen(map->south)
-		|| !ft_strlen(map->east) || !ft_strlen(map->west)
-		|| !ft_strlen(map->floor) || !ft_strlen(map->ceiling))
+	if (!ft_strlen(obj->north) || !ft_strlen(obj->south)
+		|| !ft_strlen(obj->east) || !ft_strlen(obj->west)
+		|| !ft_strlen(obj->floor) || !ft_strlen(obj->ceiling))
 		return (-1);
-	if (verify_color(map->ceiling) || verify_color(map->floor))
+	if (verify_color(obj->ceiling) || verify_color(obj->floor))
 		return (-1);
 	return (0);
 }
 
-int	extract_textures(t_cub *map, int fd)
+int	extract_textures(t_object *obj, int fd)
 {
 	int		i;
 	size_t	j;
@@ -109,45 +110,45 @@ int	extract_textures(t_cub *map, int fd)
 		j = -1;
 		while (line[++j] && is_spc(line[j]))
 			j++;
-		i += line_fill(&line[j], map);
+		i += line_fill(&line[j], obj);
 		free_t(line);
 		if (i < 6)
 			line = get_next_line(fd);
 	}
 	if (i < 6)
 		return (-1);
-	return (validate_textures(map));
+	return (validate_textures(obj));
 }
 
-int	cub_init(t_cub *map, char *path)
+int	obj_init(t_object *obj, t_cub *cub, char *path)
 {
 	int		fd;
 
-	map->ceiling = NULL;
-	map->floor = NULL;
-	map->north = NULL;
-	map->south = NULL;
-	map->east = NULL;
-	map->west = NULL;
-	map->grid = NULL;
+	obj->ceiling = NULL;
+	obj->floor = NULL;
+	obj->north = NULL;
+	obj->south = NULL;
+	obj->east = NULL;
+	obj->west = NULL;
 	if (ft_strlen(path) < 5 || ft_strcmp(&path[ft_strlen(path) - 4], ".cub"))
 		return (-1);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (-1);
-	if (extract_textures(map, fd) < 0)
-		return (destroy_cub(*map), -1);
-	if (extract_grid(map, fd) < 0)
-		return (destroy_cub(*map), -1);
+	if (extract_textures(obj, fd) < 0)
+		return (destroy_obj(*obj), -1);
+	if (extract_grid(cub, fd) < 0)
+		return (destroy_obj(*obj), -1);
 	close(fd);
 	return (0);
 }
 
-void	destroy_cub(t_cub map)
+void	destroy_obj(t_object obj)
 {
-	free_t(map.north);
-	free_t(map.south);
-	free_t(map.west);
-	free_t(map.east);
-	free_chars(map.grid);
+	free_t(obj.north);
+	free_t(obj.south);
+	free_t(obj.west);
+	free_t(obj.east);
+	free_t(obj.floor);
+	free_t(obj.ceiling);
 }

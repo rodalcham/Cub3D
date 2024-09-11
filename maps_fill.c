@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   maps_fill.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:13:14 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/07/23 17:41:32 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/11 16:40:23 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-//	0 -> empty space
-//	1 -> floor & ceiling
-//	2 -> Wall
-//	3 -> Invalid
 
 int	ft_strcmp(char *s1, char *s2)
 {
@@ -88,6 +83,8 @@ char	**extract_chars(int fd)
 		return (NULL);
 	while (line && ft_strcmp(line, "\n"))
 	{
+		if (line[ft_strlen(line) - 1] == '\n')
+			line[ft_strlen(line) - 1] = '\0';
 		ret = add_str(ret, line);
 		if (!ret)
 			return (NULL);
@@ -98,27 +95,30 @@ char	**extract_chars(int fd)
 	return (ret);
 }
 
-int	extract_grid(t_cub *map, int fd)
+int		extract_grid(t_cub *map, int fd)
 {
-	char	**chars;
-	int		width;
-	int		heigth;
-	int		i;
+	char	**str;
+	int		x;
+	int		y;
 
-	chars = extract_chars(fd);
-	if (!chars)
+	str = extract_chars(fd);
+	if (!str)
 		return (-1);
-	width = 0;
-	heigth = 0;
-	while (chars[width])
+	map->map = build_plane(str, 0, 0);
+	if (!map->map)
+		return (free_chars(str), -1);
+	x = -1;
+	printf("Width : %i\n", map->map->width);
+	printf("Heigth : %i\n", map->map->heigth);
+	while (++x < map->map->heigth)
 	{
-		i = ft_strlen(chars[width]);
-		if (i > heigth)
-			heigth = i;
-		width++;
+		printf("x = %i\n", x);
+		y = -1;
+		while (++y < map->map->width && y < (int)ft_strlen(str[x]))
+		{
+			if (str[x][y] == '1')
+				map->map->grid[y][x] = map->wall;
+		}
 	}
-	map->width = width;
-	map->heigth = heigth;
-	map->grid = chars;
 	return (0);
 }
