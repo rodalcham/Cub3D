@@ -6,7 +6,7 @@
 #    By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/23 11:29:41 by rchavez@stu       #+#    #+#              #
-#    Updated: 2024/09/11 11:21:50 by rchavez          ###   ########.fr        #
+#    Updated: 2024/09/11 11:26:45 by rchavez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,9 +74,13 @@ $(MLXLIB) :
 
 clean :
 	@rm -fr $(O_F)
+	@cd $(PLANE_F) && make clean
+	@cd $(LIBFT_F) && make clean
 
 fclean : clean
 	@rm -rf $(NAME) $(MLXLIB)
+	@cd $(PLANE_F) && make fclean
+	@cd $(LIBFT_F) && make fclean
 
 re : fclean all
 
