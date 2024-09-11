@@ -7,3 +7,6 @@
 [submodule "MLibft"]
 	path = MLibft
 	url = https://github.com/rodalcham/MLibft.git
+[submodule "2DPlane"]
+	path = 2DPlane
+	url = https://github.com/rodalcham/2DPlane.git

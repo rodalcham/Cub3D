@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/07/31 09:52:18 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/11 11:20:15 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 
 # include "MLX42/include/MLX42/MLX42.h"
 # include "MLibft/libft.h"
+# include "2DPlane/Plane.h"
+# include "2DPlane/Fixed.h"
 
 # include <stdio.h> // REMOVE                										REMOVE
 
