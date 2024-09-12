@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/12 14:47:41 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/12 16:21:56 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,6 @@ int main(void)
 		return (0);
 	if (mlx_image_to_window(cub.win, cub.img[0], 0, 0))
 		return (0);
-	// cub.img[1] = mlx_new_image(cub.win, WIDTH, HEIGHT);
-	// if (!cub.img[1])
-	// 	return (0);
-	// if (mlx_image_to_window(cub.win, cub.img[1], 0, 0))
-	// 	return (0);
 	mlx_key_hook(cub.win, key_hook, &cub);
 	mlx_loop(cub.win);
 	mlx_terminate(cub.win);

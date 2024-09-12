@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:12:11 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/12 14:59:15 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/12 15:33:47 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	check_wasd(mlx_key_data_t key, t_cub *cub)
 
 	pcopy(&temp, cub->p->p);
 	if (key.key == MLX_KEY_W)
-		temp.y -= double_to_fixed(STEP);
+		temp.y -= f_mult(double_to_fixed(STEP), f_sin(cub->p->angle));
 	else if (key.key == MLX_KEY_S)
 		temp.y += double_to_fixed(STEP);
 	else if (key.key == MLX_KEY_A)

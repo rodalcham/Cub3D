@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:23:50 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/12 14:55:02 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/12 16:51:44 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,21 @@ void	draw_block(t_cub *cub, int i, int j, unsigned int c)
 
 // void	draw_player(t_cub *cub)
 // {
-	
+// 	int bwidth;
+// 	int bheigth;
+// 	mlx_texture_t	*files[8];
+
+// 	bwidth = cub->img[1]->width / cub->map->width;
+// 	bheigth = cub->img[1]->height / cub->map->heigth;
+// 	files[0] = mlx_load_png("./textures/Cursor/r.png");
+// 	files[1] = mlx_load_png("./textures/Cursor/tr.png");
+// 	files[2] = mlx_load_png("./textures/Cursor/t.png");
+// 	files[3] = mlx_load_png("./textures/Cursor/tl.png");
+// 	files[4] = mlx_load_png("./textures/Cursor/l.png");
+// 	files[5] = mlx_load_png("./textures/Cursor/bl.png");
+// 	files[6] = mlx_load_png("./textures/Cursor/b.png");
+// 	files[7] = mlx_load_png("./textures/Cursor/br.png");
+// 	cub->img[1] = mlx_texture_to_image(cub->win, files[0]);
 // }
 
 void	draw_mini(t_cub	*cub)

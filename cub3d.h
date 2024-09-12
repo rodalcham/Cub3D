@@ -6,15 +6,15 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/12 14:59:48 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/12 16:37:12 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define HEIGHT 420
-# define WIDTH 420
+# define HEIGHT 1200
+# define WIDTH 1200
 # define FOV 70
 # define RAY_NBR 140
 # define TURN 1
