@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/12 11:53:25 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/12 14:59:48 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define FOV 70
 # define RAY_NBR 140
 # define TURN 1
-# define STEP 1
+# define STEP 0.5
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -54,6 +54,7 @@ typedef struct	s_object
 typedef struct	s_cub
 {
 	mlx_t		*win;
+	mlx_image_t	*img[3];
 	t_plane		*map;
 	t_player	*p;
 	t_object	*wall;
@@ -76,7 +77,7 @@ void	free_chars(char **chars);
 void	destroy_obj(t_object obj);
 
 // Raycaster
-
+void	draw_mini(t_cub	*cub);
 
 // Player Functions
 void	init_player(t_cub *cub, int x, int y, char d);

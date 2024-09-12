@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:12:11 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/12 12:16:05 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/12 14:59:15 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ void	check_wasd(mlx_key_data_t key, t_cub *cub)
 
 	pcopy(&temp, cub->p->p);
 	if (key.key == MLX_KEY_W)
-		temp.y -= int_to_fixed(STEP);
+		temp.y -= double_to_fixed(STEP);
 	else if (key.key == MLX_KEY_S)
-		temp.y += int_to_fixed(STEP);
+		temp.y += double_to_fixed(STEP);
 	else if (key.key == MLX_KEY_A)
-		temp.x -= int_to_fixed(STEP);
+		temp.x -= double_to_fixed(STEP);
 	else if (key.key == MLX_KEY_D)
-		temp.x += int_to_fixed(STEP);
+		temp.x += double_to_fixed(STEP);
 	if (temp.x > 0 && temp.y > 0 && temp.x < int_to_fixed(temp.plane->width)
 		&& temp.y < int_to_fixed(temp.plane->heigth) && !paccess(temp))
 		pcopy(&cub->p->p, temp);
@@ -71,5 +71,5 @@ void	key_hook(mlx_key_data_t key, void *tcub)
 	else if (key.key == MLX_KEY_W || key.key == MLX_KEY_S
 		|| key.key == MLX_KEY_A || key.key == MLX_KEY_D)
 		check_wasd(key, cub);
-	printf("PLAYER:\nx: %f\ny: %f\nhead: %f\n", fixed_to_double(cub->p->p.x), fixed_to_double(cub->p->p.y), fixed_to_double(cub->p->angle));
+	draw_mini(cub);
 }

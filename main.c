@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/12 11:20:05 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/12 14:47:41 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,34 +25,26 @@ int main(void)
 		write(2, "Invalid map\n", 12);
 		return (1);
 	}
-	printf("%s\n", obj.ceiling);
-	printf("%s\n", obj.floor);
-	printf("%s\n", obj.north);
-	printf("%s\n", obj.south);
-	printf("%s\n", obj.east);
-	printf("%s\n", obj.west);
-	printf("%i\n", cub.map->width);
-	printf("%i\n", cub.map->heigth);
-	printf("Player location: x: %i, y: %i, angle: %i\n", fixed_to_int(p.p.x), fixed_to_int(p.p.y), fixed_to_int(p.angle));
-	for (int i = 0; i < cub.map->heigth; i++)
-	{
-		for (int j = 0; j < cub.map->width; j++)
-		{
-			if (cub.map->grid[j][i])
-				printf("1");
-			else
-				printf("0");
-		}
-		printf("\n");
-	}
 	cub.win = mlx_init(WIDTH, HEIGHT, "Cub3D", 1);
 	if (!cub.win)
 	{
 		write(2, "MLX error\n", 10);
 		return (1);
 	}
+	mlx_set_window_title(cub.win, "Cub3D");
+	cub.img[0] = mlx_new_image(cub.win, WIDTH, HEIGHT);
+	if (!cub.img[0])
+		return (0);
+	if (mlx_image_to_window(cub.win, cub.img[0], 0, 0))
+		return (0);
+	// cub.img[1] = mlx_new_image(cub.win, WIDTH, HEIGHT);
+	// if (!cub.img[1])
+	// 	return (0);
+	// if (mlx_image_to_window(cub.win, cub.img[1], 0, 0))
+	// 	return (0);
 	mlx_key_hook(cub.win, key_hook, &cub);
 	mlx_loop(cub.win);
 	mlx_terminate(cub.win);
+	destroy_plane(cub.map);
 	destroy_obj(obj);
 }
