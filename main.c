@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/12 10:11:57 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/12 11:20:05 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ int main(void)
 		}
 		printf("\n");
 	}
-	// cub.win = mlx_init(WIDTH, HEIGHT, "Cub3D", 1);
-	// if (!cub.win)
-	// {
-	// 	write(2, "MLX error\n", 10);
-	// 	return (1);
-	// }
-	// mlx_loop(cub.win);
-	// mlx_terminate(cub.win);
+	cub.win = mlx_init(WIDTH, HEIGHT, "Cub3D", 1);
+	if (!cub.win)
+	{
+		write(2, "MLX error\n", 10);
+		return (1);
+	}
+	mlx_key_hook(cub.win, key_hook, &cub);
+	mlx_loop(cub.win);
+	mlx_terminate(cub.win);
 	destroy_obj(obj);
 }
