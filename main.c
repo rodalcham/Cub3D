@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/11 16:41:58 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/12 10:11:57 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int main(void)
 	printf("%s\n", obj.west);
 	printf("%i\n", cub.map->width);
 	printf("%i\n", cub.map->heigth);
+	printf("Player location: x: %i, y: %i, angle: %i\n", fixed_to_int(p.p.x), fixed_to_int(p.p.y), fixed_to_int(p.angle));
 	for (int i = 0; i < cub.map->heigth; i++)
 	{
 		for (int j = 0; j < cub.map->width; j++)

@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/11 15:28:30 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/12 09:58:49 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	destroy_obj(t_object obj);
 // Raycaster
 float	normalize(float angle);
 
-
+// Player Functions
+void	init_player(t_cub *cub, int x, int y, char d);
 
 #endif

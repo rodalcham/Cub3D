@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:13:14 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/11 16:40:23 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/12 09:58:33 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,16 +108,16 @@ int		extract_grid(t_cub *map, int fd)
 	if (!map->map)
 		return (free_chars(str), -1);
 	x = -1;
-	printf("Width : %i\n", map->map->width);
-	printf("Heigth : %i\n", map->map->heigth);
 	while (++x < map->map->heigth)
 	{
-		printf("x = %i\n", x);
 		y = -1;
 		while (++y < map->map->width && y < (int)ft_strlen(str[x]))
 		{
 			if (str[x][y] == '1')
 				map->map->grid[y][x] = map->wall;
+			else if (str[x][y] == 'N' || str[x][y] == 'E'
+				|| str[x][y] == 'E' || str[x][y] == 'W')
+				init_player(map, x, y, str[x][y]);
 		}
 	}
 	return (0);
