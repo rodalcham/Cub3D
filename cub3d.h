@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/12 16:37:12 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/12 17:00:10 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define WIDTH 1200
 # define FOV 70
 # define RAY_NBR 140
-# define TURN 1
+# define TURN 5
 # define STEP 0.5
 
 # include <unistd.h>
