@@ -6,15 +6,15 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/13 14:50:17 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/13 17:01:57 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define HEIGHT 1200
-# define WIDTH 1200
+# define HEIGHT 600
+# define WIDTH 600
 # define FOV 70
 # define RAY_NBR 140
 # define TURN 5
@@ -31,7 +31,11 @@
 # include "2DPlane/Plane.h"
 # include "2DPlane/Fixed.h"
 
-// Our player struct
+/** Our player Struct
+* @param P The point at which the player is located
+* @param angle The angle that the player is facing
+* @param view An array of all the angles in the player's FOV
+*/
 typedef struct	s_player
 {
 	t_point		p;
@@ -39,7 +43,14 @@ typedef struct	s_player
 	t_ray		view[RAY_NBR];
 }				t_player;
 
-// Our object struct
+/** A struct for objects to be displayed
+ * @param NORTH The texture of the object's north side
+ * @param SOUTH The texture of the object's south side
+ * @param EAST The texture of the object's east side
+ * @param WEST The texture of the object's west side
+ * @param FLOOR The texture of the object's bottom side
+ * @param CEILING The texture of the object's top side
+ */
 typedef struct	s_object
 {
 	char		*north;
@@ -50,7 +61,13 @@ typedef struct	s_object
 	char		*ceiling;
 }				t_object;
 
-// Our map struct
+/** Our Cub3D Struct
+ * @param WIN A pointer to the window
+ * @param IMG An array of pointers to images
+ * @param MAP A pointer to a plane object
+ * @param P A pointer to the player
+ * @param WALL A pointer to the object representing our walls
+ */
 typedef struct	s_cub
 {
 	mlx_t		*win;
@@ -60,7 +77,11 @@ typedef struct	s_cub
 	t_object	*wall;
 }				t_cub;
 
-//	Crash Struct
+/** A useful struct to store information about collisions
+ * @param OBJ The object you have collided with
+ * @param distance How far away is the object from origin
+ * @param DIR A char, indicating from which direction the collision occured
+ */
 typedef	struct crash_s
 {
 	void		*obj;

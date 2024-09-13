@@ -6,11 +6,33 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:11:25 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/13 15:11:51 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/13 16:38:57 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+t_point	first_crash(t_ray r, int sign, char mode)
+{
+	t_fixed	temp;
+
+	if (mode == 'x')
+	{
+		temp = r.src->x >> POINT;
+		temp = temp << POINT;
+		if (sign == 1)
+			temp += int_to_fixed(1);
+		return (from_x(r, temp));
+	}
+	else
+	{
+		temp = r.src->y >> POINT;
+		temp = temp << POINT;
+		if (sign == 1)
+			temp += int_to_fixed(1);
+		return (from_y(r, temp));
+	}
+}
 
 t_crash	cast_x(t_ray r, int xsign)
 {
@@ -19,9 +41,9 @@ t_crash	cast_x(t_ray r, int xsign)
 	int	i;
 
 	i = 0;
+	pcopy(&temp, first_crash(r, xsign, 'x'));
 	while (++i && xsign)
 	{
-		pcopy(&temp, from_x(r, int_to_fixed(xsign * i)));
 		if (paccess(temp) || temp.x < 0 || temp.y < 0
 			|| temp.x >= int_to_fixed(temp.plane->width)
 			|| temp.y >= int_to_fixed(temp.plane->heigth))
@@ -34,6 +56,7 @@ t_crash	cast_x(t_ray r, int xsign)
 			ret.distance = distance(*r.src, temp);
 			return (ret);
 		}
+		pcopy(&temp, from_x(r, int_to_fixed(xsign * i)));
 	}
 	return ((t_crash){NULL, 0, '\0'});
 }
@@ -45,9 +68,9 @@ t_crash	cast_y(t_ray r, int ysign)
 	int	i;
 
 	i = 0;
+	pcopy(&temp, first_crash(r, ysign, 'y'));
 	while (++i && ysign)
 	{
-		pcopy(&temp, from_x(r, int_to_fixed(ysign * i)));
 		if (paccess(temp) || temp.x < 0 || temp.y < 0
 			|| temp.x >= int_to_fixed(temp.plane->width)
 			|| temp.y >= int_to_fixed(temp.plane->heigth))
@@ -60,6 +83,7 @@ t_crash	cast_y(t_ray r, int ysign)
 			ret.distance = distance(*r.src, temp);
 			return (ret);
 		}
+		pcopy(&temp, from_x(r, int_to_fixed(ysign * i)));
 	}
 	return ((t_crash){NULL, 0, '\0'});
 }
