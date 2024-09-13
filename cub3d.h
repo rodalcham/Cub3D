@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/12 17:00:10 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/13 14:50:17 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	destroy_obj(t_object obj);
 
 // Raycaster
 void	draw_mini(t_cub	*cub);
+void	pcopy(t_point *dst, t_point src);
 
 // Player Functions
 void	init_player(t_cub *cub, int x, int y, char d);

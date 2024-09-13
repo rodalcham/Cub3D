@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/23 11:29:41 by rchavez@stu       #+#    #+#              #
-#    Updated: 2024/09/12 14:20:22 by rchavez          ###   ########.fr        #
+#    Updated: 2024/09/13 14:13:06 by rchavez@stu      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ O_F = OBJ
 
 MLXLIB = ./MLX42
 
-# LFLAGS = -ldl -lglfw3 -pthread -lm -framework Cocoa -framework OpenGL -framework IOKit
-LFLAGS = -ldl -lglfw -pthread -lm -framework Cocoa -framework OpenGL -framework IOKit
+LFLAGS = -ldl -lglfw3 -pthread -lm -framework Cocoa -framework OpenGL -framework IOKit
+# LFLAGS = -ldl -lglfw -pthread -lm -framework Cocoa -framework OpenGL -framework IOKit
 
 MLX = ./MLX42/build/libmlx42.a
 
@@ -39,7 +39,7 @@ OFILES = $(CFILES:%.c=$(O_F)/%.o)
 
 all : $(NAME)
 
-$(NAME) : $(MLX) $(LIBFT) $(OFILES) $(PLANE)
+$(NAME) : $(MLX) $(LIBFT) $(PLANE) $(OFILES)
 	$(CC) $(CFLAGS) -o $(NAME) $(LFLAGS) $(MLX) $(OFILES) $(LIBFT) $(PLANE)
 
 $(O_F)/%.o : %.c | $(O_F)
