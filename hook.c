@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:12:11 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/12 17:08:08 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/14 14:16:45 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	check_angles(mlx_key_data_t key, t_cub *cub)
 
 	i = -1;
 	if (key.key == MLX_KEY_RIGHT)
-		cub->p->angle = normalize(cub->p->angle - int_to_fixed(TURN));
-	else if (key.key == MLX_KEY_LEFT)
 		cub->p->angle = normalize(cub->p->angle + int_to_fixed(TURN));
+	else if (key.key == MLX_KEY_LEFT)
+		cub->p->angle = normalize(cub->p->angle - int_to_fixed(TURN));
 	while (++i < RAY_NBR)
 		cub->p->view[i].angle = cub->p->angle + f_mult(delta, double_to_fixed(i - RAY_NBR / 2));
 }
@@ -50,21 +50,21 @@ void	check_wasd(mlx_key_data_t key, t_cub *cub)
 	if (key.key == MLX_KEY_W)
 	{
 		temp.x += f_mult(double_to_fixed(STEP), f_cos(cub->p->angle));
-		temp.y -= f_mult(double_to_fixed(STEP), f_sin(cub->p->angle));
+		temp.y += f_mult(double_to_fixed(STEP), f_sin(cub->p->angle));
 	}
 	else if (key.key == MLX_KEY_S)
 	{
 		temp.x -= f_mult(double_to_fixed(STEP), f_cos(cub->p->angle));
-		temp.y += f_mult(double_to_fixed(STEP), f_sin(cub->p->angle));
+		temp.y -= f_mult(double_to_fixed(STEP), f_sin(cub->p->angle));
 	}
 	else if (key.key == MLX_KEY_A)
 	{
-		temp.x -= f_mult(double_to_fixed(STEP), f_sin(cub->p->angle));
+		temp.x += f_mult(double_to_fixed(STEP), f_sin(cub->p->angle));
 		temp.y -= f_mult(double_to_fixed(STEP), f_cos(cub->p->angle));
 	}
 	else if (key.key == MLX_KEY_D)
 	{
-		temp.x += f_mult(double_to_fixed(STEP), f_sin(cub->p->angle));
+		temp.x -= f_mult(double_to_fixed(STEP), f_sin(cub->p->angle));
 		temp.y += f_mult(double_to_fixed(STEP), f_cos(cub->p->angle));
 	}
 	if (temp.x > 0 && temp.y > 0 && temp.x < int_to_fixed(temp.plane->width)

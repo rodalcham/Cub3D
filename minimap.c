@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:23:50 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/14 13:01:09 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/14 14:25:01 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	draw_block(t_cub *cub, int i, int j, unsigned int c)
 // 	cub->img[1] = mlx_texture_to_image(cub->win, files[0]);
 // }
 
+
 void	draw_line(t_cub *cub, t_point src, t_point dst)
 {
 	int	srcx;
@@ -64,19 +65,16 @@ void	draw_line(t_cub *cub, t_point src, t_point dst)
 	srcy = (fixed_to_float(src.y) / src.plane->heigth) * (cub->img[0]->height);
 	dstx = (fixed_to_float(dst.x) / dst.plane->width) * (cub->img[0]->width);
 	dsty = (fixed_to_float(dst.y) / dst.plane->heigth) * (cub->img[0]->height);
-	while (srcy != dsty)
+	while (srcy != dsty || srcx != dstx)
 	{
-		while (srcx != dstx)
-		{
-			mlx_put_pixel(cub->img[0], srcx, srcy, 94702);
-			if (srcx < dstx)
-				srcx++;
-			else
-				srcx--;
-		}
+		mlx_put_pixel(cub->img[0], srcx, srcy, 94702);
+		if (srcx < dstx)
+			srcx++;
+		else if (srcx > dstx)
+			srcx--;
 		if (srcy < dsty)
 			srcy++;
-		else
+		else if (srcy > dsty)
 			srcy--;
 	}
 }
@@ -91,17 +89,17 @@ void	draw_player(t_cub *cub)
 	bwidth = cub->img[0]->width / cub->map->width;
 	bheigth = cub->img[0]->height / cub->map->heigth;
 	b = fixed_to_float(cub->p->p.y) * bheigth;
-	while (b < ((fixed_to_float(cub->p->p.y) + 1) * bheigth) - (bheigth / 2))
+	while (b < fixed_to_float(cub->p->p.y) * bheigth + (bheigth / 2))
 	{
 		a = fixed_to_float(cub->p->p.x) * bwidth;
-		while (a < (fixed_to_float(cub->p->p.x) + 1) * bwidth - (bwidth / 2))
+		while (a < fixed_to_float(cub->p->p.x) * bwidth + (bwidth / 2))
 		{
 			mlx_put_pixel(cub->img[0], a, b, 4242);
 			a++;
 		}
 		b++;
 	}
-	draw_line(cub, cub->p->p, from_h((t_ray){&cub->p->p, cub->p->angle}, int_to_fixed(5)));
+	draw_line(cub, cub->p->p, from_h((t_ray){&cub->p->p, cub->p->angle}, int_to_fixed(1)));
 }
 
 void	draw_mini(t_cub	*cub)
