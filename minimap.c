@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:23:50 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/14 14:25:01 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/15 13:43:02 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,53 +54,118 @@ void	draw_block(t_cub *cub, int i, int j, unsigned int c)
 // }
 
 
-void	draw_line(t_cub *cub, t_point src, t_point dst)
-{
-	int	srcx;
-	int	srcy;
-	int	dstx;
-	int	dsty;
+// void	draw_line(t_cub *cub, t_point src, t_point dst)
+// {
+// 	int	srcx;
+// 	int	srcy;
+// 	int	dstx;
+// 	int	dsty;
 
-	srcx = (fixed_to_float(src.x) / src.plane->width) * (cub->img[0]->width);
-	srcy = (fixed_to_float(src.y) / src.plane->heigth) * (cub->img[0]->height);
-	dstx = (fixed_to_float(dst.x) / dst.plane->width) * (cub->img[0]->width);
-	dsty = (fixed_to_float(dst.y) / dst.plane->heigth) * (cub->img[0]->height);
-	while (srcy != dsty || srcx != dstx)
-	{
-		mlx_put_pixel(cub->img[0], srcx, srcy, 94702);
-		if (srcx < dstx)
-			srcx++;
-		else if (srcx > dstx)
-			srcx--;
-		if (srcy < dsty)
-			srcy++;
-		else if (srcy > dsty)
-			srcy--;
-	}
+// 	srcx = (fixed_to_float(src.x) / src.plane->width) * (cub->img[0]->width);
+// 	srcy = (fixed_to_float(src.y) / src.plane->heigth) * (cub->img[0]->height);
+// 	dstx = (fixed_to_float(dst.x) / dst.plane->width) * (cub->img[0]->width);
+// 	dsty = (fixed_to_float(dst.y) / dst.plane->heigth) * (cub->img[0]->height);
+// 	while (srcy != dsty || srcx != dstx)
+// 	{
+// 		mlx_put_pixel(cub->img[0], srcx, srcy, 94702);
+// 		if (srcx < dstx)
+// 			srcx++;
+// 		else if (srcx > dstx)
+// 			srcx--;
+// 		if (srcy < dsty)
+// 			srcy++;
+// 		else if (srcy > dsty)
+// 			srcy--;
+// 	}
+// }
+
+void draw_line(t_cub *cub, t_point src, t_point dst)
+{
+	int x0 = (fixed_to_float(src.x) / src.plane->width) * cub->img[0]->width;
+	int y0 = (fixed_to_float(src.y) / src.plane->heigth) * cub->img[0]->height;
+	int x1 = (fixed_to_float(dst.x) / dst.plane->width) * cub->img[0]->width;
+	int y1 = (fixed_to_float(dst.y) / dst.plane->heigth) * cub->img[0]->height;
+	int dx = abs(x1 - x0);
+	int dy = abs(y1 - y0);
+	int sx = x0 < x1 ? 1 : -1;
+	int sy = y0 < y1 ? 1 : -1;
+	int err = dx - dy;
+
+    while (1)
+    {
+        mlx_put_pixel(cub->img[0], x0, y0, 94702); // Color of the line
+        if (x0 == x1 && y0 == y1) break;
+        int e2 = err * 2;
+        if (e2 > -dy)
+        {
+            err -= dy;
+            x0 += sx;
+        }
+        if (e2 < dx)
+        {
+            err += dx;
+            y0 += sy;
+        }
+    }
 }
 
+
+
+// void	draw_player(t_cub *cub)
+// {
+// 	int bwidth;
+// 	int bheigth;
+// 	int	a;
+// 	int b;
+	
+// 	bwidth = cub->img[0]->width / cub->map->width;
+// 	bheigth = cub->img[0]->height / cub->map->heigth;
+// 	b = fixed_to_float(cub->p->p.y) * bheigth;
+// 	while (b < fixed_to_float(cub->p->p.y) * bheigth + (bheigth / 2))
+// 	{
+// 		a = fixed_to_float(cub->p->p.x) * bwidth;
+// 		while (a < fixed_to_float(cub->p->p.x) * bwidth + (bwidth / 2))
+// 		{
+// 			mlx_put_pixel(cub->img[0], a, b, 4242);
+// 			a++;
+// 		}
+// 		b++;
+// 	}
+// 	draw_line(cub, cub->p->p, from_h((t_ray){&cub->p->p, cub->p->angle}, int_to_fixed(1)));
+// }
 void	draw_player(t_cub *cub)
 {
-	int bwidth;
-	int bheigth;
-	int	a;
-	int b;
-	
+	int	bwidth;
+	int	bheigth;
+	int	px;
+	int	py;
+	int	radius;
+	int	y;
+	int	x;
+
+	radius = 3;
 	bwidth = cub->img[0]->width / cub->map->width;
 	bheigth = cub->img[0]->height / cub->map->heigth;
-	b = fixed_to_float(cub->p->p.y) * bheigth;
-	while (b < fixed_to_float(cub->p->p.y) * bheigth + (bheigth / 2))
+	px = fixed_to_float(cub->p->p.x) * bwidth;
+	py = fixed_to_float(cub->p->p.y) * bheigth;
+	y = -radius;
+	while (y <= radius)
 	{
-		a = fixed_to_float(cub->p->p.x) * bwidth;
-		while (a < fixed_to_float(cub->p->p.x) * bwidth + (bwidth / 2))
+		x = -radius;
+		while (x <= radius)
 		{
-			mlx_put_pixel(cub->img[0], a, b, 4242);
-			a++;
+			if (x * x + y * y <= radius * radius)
+				mlx_put_pixel(cub->img[0], px + x, py + y, 0xFF0000);
+			x++;
 		}
-		b++;
+		y++;
 	}
-	draw_line(cub, cub->p->p, from_h((t_ray){&cub->p->p, cub->p->angle}, int_to_fixed(1)));
+	t_point player_position = cub->p->p;
+	t_point direction_point = from_h((t_ray){&cub->p->p, cub->p->angle}, int_to_fixed(2));
+	draw_line(cub, player_position, direction_point);
 }
+
+
 
 void	draw_mini(t_cub	*cub)
 {
@@ -121,3 +186,5 @@ void	draw_mini(t_cub	*cub)
 	}
 	draw_player(cub);
 }
+
+
