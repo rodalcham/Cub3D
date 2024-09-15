@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:11:25 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/13 16:38:57 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/15 22:25:31 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ t_crash	cast_x(t_ray r, int xsign)
 			else
 				ret.dir = 'w';
 			ret.distance = distance(*r.src, temp);
+			pcopy(&ret.p, temp);
 			return (ret);
 		}
 		pcopy(&temp, from_x(r, int_to_fixed(xsign * i)));
 	}
-	return ((t_crash){NULL, 0, '\0'});
+	return ((t_crash){NULL, *r.src, 0, '\0'});
 }
 
 t_crash	cast_y(t_ray r, int ysign)
@@ -81,11 +82,12 @@ t_crash	cast_y(t_ray r, int ysign)
 			else
 				ret.dir = 'n';
 			ret.distance = distance(*r.src, temp);
+			pcopy(&ret.p, temp);
 			return (ret);
 		}
 		pcopy(&temp, from_x(r, int_to_fixed(ysign * i)));
 	}
-	return ((t_crash){NULL, 0, '\0'});
+	return ((t_crash){NULL, *r.src, 0, '\0'});
 }
 
 t_crash	cast_ray(t_ray r)

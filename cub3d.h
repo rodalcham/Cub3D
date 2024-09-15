@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/14 12:16:46 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/15 22:26:00 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,14 @@ typedef struct	s_cub
 
 /** A useful struct to store information about collisions
  * @param OBJ The object you have collided with
- * @param distance How far away is the object from origin
+ * @param P The point of collision
+ * @param DISTANCE How far away is the object from origin
  * @param DIR A char, indicating from which direction the collision occured
  */
 typedef	struct crash_s
 {
 	void		*obj;
+	t_point		p;
 	t_fixed		distance;
 	char		dir;
 }				t_crash;
@@ -105,5 +107,6 @@ void	pcopy(t_point *dst, t_point src);
 void	init_player(t_cub *cub, int x, int y, char d);
 void	key_hook(mlx_key_data_t key, void *cub);
 
+t_fixed	normalize(t_fixed angle);
 
 #endif
