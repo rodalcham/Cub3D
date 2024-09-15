@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 13:23:50 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/15 13:43:02 by mbankhar         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/09/15 14:06:46 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "cub3d.h"
 
