@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:23:50 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/14 14:25:01 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/15 10:58:54 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,32 @@ void	draw_block(t_cub *cub, int i, int j, unsigned int c)
 // 	files[7] = mlx_load_png("./textures/Cursor/br.png");
 // 	cub->img[1] = mlx_texture_to_image(cub->win, files[0]);
 // }
+void draw_pixels(int x0, int y0, int x1, int y1, t_cub *cub) {
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
+    int sx = (x0 < x1) ? 1 : -1;
+    int sy = (y0 < y1) ? 1 : -1;
+    int err = dx - dy;
+
+    while (1) {
+        mlx_put_pixel(cub->img[0], x0, y0, 4242);
+
+        if (x0 == x1 && y0 == y1)
+            break;
+
+        int e2 = 2 * err;
+
+        if (e2 > -dy) {
+            err -= dy;
+            x0 += sx;
+        }
+
+        if (e2 < dx) {
+            err += dx;
+            y0 += sy;
+        }
+    }
+}
 
 
 void	draw_line(t_cub *cub, t_point src, t_point dst)
@@ -65,18 +91,19 @@ void	draw_line(t_cub *cub, t_point src, t_point dst)
 	srcy = (fixed_to_float(src.y) / src.plane->heigth) * (cub->img[0]->height);
 	dstx = (fixed_to_float(dst.x) / dst.plane->width) * (cub->img[0]->width);
 	dsty = (fixed_to_float(dst.y) / dst.plane->heigth) * (cub->img[0]->height);
-	while (srcy != dsty || srcx != dstx)
-	{
-		mlx_put_pixel(cub->img[0], srcx, srcy, 94702);
-		if (srcx < dstx)
-			srcx++;
-		else if (srcx > dstx)
-			srcx--;
-		if (srcy < dsty)
-			srcy++;
-		else if (srcy > dsty)
-			srcy--;
-	}
+	// while (srcy != dsty || srcx != dstx)
+	// {
+	// 	mlx_put_pixel(cub->img[0], srcx, srcy, 94702);
+	// 	if (srcx < dstx)
+	// 		srcx += ((srcx - dstx) / (srcy - dsty));
+	// 	else if (srcx > dstx)
+	// 		srcx -= ((srcx - dstx) / (srcy - dsty));
+	// 	if (srcy < dsty)
+	// 		srcy += ((srcy - dsty) / (srcx - dstx));
+	// 	else if (srcy > dsty)
+	// 		srcy -= ((srcy - dsty) / (srcx - dstx));
+	// }
+	draw_pixels(dsty, srcy, dstx, srcx, cub);
 }
 
 void	draw_player(t_cub *cub)
