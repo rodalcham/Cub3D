@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/15 22:26:00 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/16 12:06:16 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ void	init_player(t_cub *cub, int x, int y, char d);
 void	key_hook(mlx_key_data_t key, void *cub);
 
 t_fixed	normalize(t_fixed angle);
+void	flood_fill(t_cub *cub, t_point p, uint32_t limit, uint32_t fill);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:12:11 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/14 14:16:45 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/16 12:33:50 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ void	key_hook(mlx_key_data_t key, void *tcub)
 	
 	if (key.key == MLX_KEY_ESCAPE && cub)
 		mlx_close_window(cub->win);
-	else if (key.key == MLX_KEY_RIGHT || key.key == MLX_KEY_LEFT)
+	if (key.key == MLX_KEY_RIGHT || key.key == MLX_KEY_LEFT)
 		check_angles(key, cub);
-	else if (key.key == MLX_KEY_W || key.key == MLX_KEY_S
+	if (key.key == MLX_KEY_W || key.key == MLX_KEY_S
 		|| key.key == MLX_KEY_A || key.key == MLX_KEY_D)
 		check_wasd(key, cub);
 	draw_mini(cub);
