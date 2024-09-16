@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:02:50 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/16 18:15:46 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/16 21:59:32 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ void	draw_player(t_cub *cub)
 	draw_line(cub, p[0], p[3]);
 	draw_line(cub, p[1], p[2]);
 	draw_line(cub, p[1], p[3]);
-	// for (int i = 0; i < RAY_NBR; i++)
-	// {
-		x = cast_ray(cub->p->view[0]);
+	for (int i = 0; i < RAY_NBR; i++)
+	{
+		x = cast_ray(cub->p->view[i]);
 		draw_line(cub, cub->p->p, x.p);
-	// }
+	}
 }
 
 void	draw_mini(t_cub	*cub)
@@ -140,6 +140,7 @@ void	rec_fill(mlx_image_t *img, uint32_t pos[2], uint8_t lim[8], uint32_t col)
 		}
 	}
 }
+
 void	flood_fill(t_cub *cub, t_point p, uint32_t limit, uint32_t fill)
 {
 	uint32_t	pos[2];

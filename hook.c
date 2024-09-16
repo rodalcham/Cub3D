@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:12:11 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/16 15:35:44 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/16 22:00:56 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	check_angles(t_cub *cub)
 	int i;
 
 	i = -1;
-	delta = double_to_fixed(FOV / RAY_NBR);
+	delta = f_div(int_to_fixed(FOV), int_to_fixed(RAY_NBR));
 	if (mlx_is_key_down(cub->win, MLX_KEY_RIGHT))
 		cub->p->angle = normalize(cub->p->angle + int_to_fixed(TURN));
 	else
 		cub->p->angle = normalize(cub->p->angle - int_to_fixed(TURN));
 	while (++i < RAY_NBR)
-		cub->p->view[i].angle = cub->p->angle + f_mult(delta, double_to_fixed(i - RAY_NBR / 2));
+		cub->p->view[i].angle = normalize(cub->p->angle + f_mult(delta, int_to_fixed(i - RAY_NBR / 2)));
 }
 
 void	check_ws(t_cub *cub, t_point *temp)

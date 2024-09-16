@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/16 18:12:47 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/16 22:01:44 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define HEIGHT 600
 # define WIDTH 600
 # define FOV 70
-# define RAY_NBR 70
+# define RAY_NBR 210
 # define TURN 2
 # define STEP 0.05
 

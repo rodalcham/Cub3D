@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/16 17:49:16 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/16 21:59:29 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main(void)
 	}
 	for (int i = 0; i < RAY_NBR; i++)
 	{
-		p.view[i].angle = 100;
+		p.view[i].angle = int_to_fixed(390);
 		p.view[i].src = &p.p;
 	}
 	cub.win = mlx_init(WIDTH, HEIGHT, "Cub3D", 1);
