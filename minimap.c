@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:02:50 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/15 22:26:25 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/16 11:04:53 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,36 @@ void	draw_mini(t_cub	*cub)
 		}
 	}
 	draw_player(cub);
+}
+
+void	rec_fill(mlx_image_t *img, uint32_t pos[2], uint8_t lim[2], uint32_t col)
+{
+	uint8_t* pixel;
+	uint8_t
+
+	MLX_NONNULL(img);
+	MLX_ASSERT(pos[0] < img->width, "Pixel is out of bounds");
+	MLX_ASSERT(pos[1] < img->height, "Pixel is out of bounds");
+	pixel = &img->pixels[(pos[1] * img->width + pos[0]) * sizeof(int32_t)];
+}
+void	flood_fill(t_cub *cub, t_point p, uint32_t limit, uint32_t fill)
+{
+	uint32_t	pos[2];
+	uint8_t	lim[8];
+	uint8_t	*temp;
+	
+	pos[0] = fixed_to_int(p.x);
+	pos[1] = fixed_to_int(p.y);
+	temp = &lim[0];
+	*(temp++) = (uint8_t)(limit >> 24);
+	*(temp++) = (uint8_t)(limit >> 16);
+	*(temp++) = (uint8_t)(limit >> 8);
+	*(temp++) = (uint8_t)(limit & 0xFF);
+	temp = &lim[4];
+	*(temp++) = (uint8_t)(limit >> 24);
+	*(temp++) = (uint8_t)(limit >> 16);
+	*(temp++) = (uint8_t)(limit >> 8);
+	*(temp++) = (uint8_t)(limit & 0xFF);
+	printf("%i\n", temp[2]);
+	rec_fill(cub->img[0], pos, lim, fill);
 }
