@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:36:37 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/16 17:19:31 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:06:10 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+t_point	calc_coll(t_ray ray, int sign, char mode);
+
 t_crash rec_ray(t_ray ray, t_point point, t_fixed xdelta, t_fixed ydelta)
 {
 	t_crash ret;
 
-	while (1)
+	while (point.x > 0 && point.x < int_to_fixed(ray.src->plane->width) - xdelta && point.y > 0 && point.y < int_to_fixed(ray.src->plane->heigth) - ydelta)
 	{
 		if (paccess(point))
 		{
@@ -29,6 +31,11 @@ t_crash rec_ray(t_ray ray, t_point point, t_fixed xdelta, t_fixed ydelta)
 		point.x += xdelta;
 		point.y += ydelta;
 	}
+	ret.dir = 'c';
+	ret.distance = distance(*ray.src, point);
+	ret.p = point;
+	ret.obj = paccess(point);
+	return (ret);
 }
 
 t_crash	castray_X(int xsign, t_ray ray, t_point point)
@@ -85,6 +92,7 @@ t_point	calc_coll(t_ray ray, int sign, char mode)
 	t_point ret;
 	t_fixed temp;
 
+	ret.plane = ray.src->plane;
 	if (mode == 'x')
 	{
 		ret.x = ray.src->x >> 16;

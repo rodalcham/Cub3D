@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:02:50 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/16 12:27:32 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/16 18:15:46 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	draw_line(t_cub *cub, t_point src, t_point dst)
 void	draw_player(t_cub *cub)
 {
 	t_point	p[4];
+	t_crash	x;
 
 	p[0] = from_h((t_ray){&cub->p->p, cub->p->angle}, double_to_fixed(0.5));
 	p[1] = from_h((t_ray){&cub->p->p, normalize(cub->p->angle
@@ -93,6 +94,11 @@ void	draw_player(t_cub *cub)
 	draw_line(cub, p[0], p[3]);
 	draw_line(cub, p[1], p[2]);
 	draw_line(cub, p[1], p[3]);
+	// for (int i = 0; i < RAY_NBR; i++)
+	// {
+		x = cast_ray(cub->p->view[0]);
+		draw_line(cub, cub->p->p, x.p);
+	// }
 }
 
 void	draw_mini(t_cub	*cub)

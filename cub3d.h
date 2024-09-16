@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/16 15:45:14 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:12:47 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define HEIGHT 600
 # define WIDTH 600
 # define FOV 70
-# define RAY_NBR 140
+# define RAY_NBR 70
 # define TURN 2
 # define STEP 0.05
 
@@ -109,6 +109,6 @@ void	key_hook(void *cub);
 t_fixed	normalize(t_fixed angle);
 void	flood_fill(t_cub *cub, t_point p, uint32_t limit, uint32_t fill);
 void	pcopy(t_point *dst, t_point src);
-t_crash cast_ray(t_ray ray, t_plane plane, t_crash crash);
+t_crash	cast_ray(t_ray ray);
 
 #endif
