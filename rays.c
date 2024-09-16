@@ -3,99 +3,145 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:36:37 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/16 15:03:30 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/16 15:44:37 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// t_crash draw_ray(t_player *p, t_cub map)
-// {
-// 	int x;
-// 	// Angle should be in radians
-// 	x = 0;
-// 	double dirX = cos(p->angle);
-// 	double dirY = sin(p->angle);
-// 	double planeX = -dirY * tan(FOV / 2);
-// 	double planeY = dirX * tan(FOV / 2);
+#define P2 (int_to_fixed(PI / 2))
+#define P3 (int_to_fixed(3 * PI / 2))
 
-// 	while (x < WIDTH)
-// 	{
-// 		double cameraX = 2 * x / (double)(WIDTH) - 1;
-// 		double rayDirX = dirX + planeX * cameraX;
-// 		double rayDirY = dirY + planeY * cameraX;
-		
-// 		// Map indices
-// 		int mapX = (int)(p->p.x);
-// 		int mapY = (int)(p->p.y);
+t_crash cast_ray(t_ray ray, t_plane plane, t_crash crash)
+{
+	int mx, my; // Grid position
+	int dof;    // Depth of field (how many iterations we've done)
+	t_fixed rx, ry; // Ray X and Y positions in fixed-point
+	t_fixed ra;   // Ray angle in fixed-point
+	t_fixed xo, yo; // X and Y increments (step size) in fixed-point
+	int r = 0;
 
-// 		double sideDistX;
-// 		double sideDistY;
-// 		double deltaDistX = fabs(1 / rayDirX);
-// 		double deltaDistY = fabs(1 / rayDirY);
-// 		double perpWallDist;
+	ra = float_to_fixed(ray.angle); // Convert ray angle to fixed-point
 
-// 		// Direction of step in x or y-direction (either +1 or -1)
-// 		int stepX;
-// 		int stepY;
+	while (r < 1) // Outer loop for raycasting
+	{
+		// Horizontal raycasting
+		dof = 0;
+		t_fixed aTan = f_tan(int_to_fixed(-1) / ra); // atan for fixed-point
 
-// 		int hit = 0; // was there a wall hit?
-// 		int side;    // was a NS or an EW wall hit?
+		// Looking down (ray direction is downward)
+		if (fixed_to_float(ra) > PI)
+		{
+			ry = int_to_fixed(((int)fixed_to_int(ray.src->y) >> 6) << 6) - int_to_fixed(0.0001);
+			rx = (ray.src->y - ry) * aTan + ray.src->x;
+			yo = int_to_fixed(-64);
+			xo = -yo * aTan;
+		}
+		// Looking up (ray direction is upward)
+		else if (fixed_to_float(ra) < PI)
+		{
+			ry = int_to_fixed(((int)fixed_to_int(ray.src->y) >> 6) << 6) + int_to_fixed(64);
+			rx = (ray.src->y - ry) * aTan + ray.src->x;
+			yo = int_to_fixed(64);
+			xo = -yo * aTan;
+		}
+		// Looking straight left or right (no horizontal intersection)
+		else if (fabs(fixed_to_float(ra) - PI) < 0.0001 || fabs(fixed_to_float(ra)) < 0.0001)
+		{
+			rx = ray.src->x;
+			ry = ray.src->y;
+			dof = 8;  // Max out the depth of field (no intersection)
+		}
 
-// 		// Calculate step and initial sideDist
-// 		if (rayDirX < 0)
-// 		{
-// 			stepX = -1;
-// 			sideDistX = (p->p.x - mapX) * deltaDistX;
-// 		}
-// 		else
-// 		{
-// 			stepX = 1;
-// 			sideDistX = (mapX + 1.0 - p->p.x) * deltaDistX;
-// 		}
-// 		if (rayDirY < 0)
-// 		{
-// 			stepY = -1;
-// 			sideDistY = (p->p.y - mapY) * deltaDistY;
-// 		}
-// 		else
-// 		{
-// 			stepY = 1;
-// 			sideDistY = (mapY + 1.0 - p->p.y) * deltaDistY;
-// 		}
+		// Horizontal ray-casting loop
+		while (dof < 8)
+		{
+			mx = fixed_to_int(rx) >> 6;
+			my = fixed_to_int(ry) >> 6;
+			// Bounds checking (make sure we're inside the grid)
+			if (mx >= 0 && mx < plane.width && my >= 0 && my < plane.heigth)
+			{
+				// Check if the ray hit something in the grid (non-zero means a hit)
+				if (plane.grid[my][mx] != NULL) 
+				{
+					dof = 8; // Stop when a hit is detected
+					crash.p.x = rx;
+					crash.p.y = ry;
+					crash.distance = sqrtf((fixed_to_float(rx - ray.src->x)) * (fixed_to_float(rx - ray.src->x)) + (fixed_to_float(ry - ray.src->y)) * (fixed_to_float(ry - ray.src->y)));
+				}
+				else
+				{
+					rx += xo;
+					ry += yo;
+					dof += 1;
+				}
+			}
+			else
+			{
+				dof = 8; // Out of bounds
+			}
+		}
 
-// 		// Perform DDA
-// 		while (hit == 0)
-// 		{
-// 			// Jump to next map square, either in x-direction, or in y-direction
-// 			if (sideDistX < sideDistY)
-// 			{
-// 				sideDistX += deltaDistX;
-// 				mapX += stepX;
-// 				side = 0;
-// 			}
-// 			else
-// 			{
-// 				sideDistY += deltaDistY;
-// 				mapY += stepY;
-// 				side = 1;
-// 			}
+		// Vertical raycasting
+		dof = 0;
+		t_fixed nTan = f_tan(ra); // tan for fixed-point
 
-// 			// Check if ray has hit a wall
-// 			if (map.map[mapX][mapY])
-// 				hit = 1;
-// 		}
+		// Looking left
+		if (fixed_to_float(ra) > PI / 2 && fixed_to_float(ra) < 3 * PI / 2)
+		{
+			rx = int_to_fixed(((int)fixed_to_int(ray.src->x) >> 6) << 6) - int_to_fixed(0.0001);
+			ry = (ray.src->x - rx) * nTan + ray.src->y;
+			xo = int_to_fixed(-64);
+			yo = -xo * nTan;
+		}
+		// Looking right
+		else if (fixed_to_float(ra) < PI / 2 || fixed_to_float(ra) > 3 * PI / 2)
+		{
+			rx = int_to_fixed(((int)fixed_to_int(ray.src->x) >> 6) << 6) + int_to_fixed(64);
+			ry = (ray.src->x - rx) * nTan + ray.src->y;
+			xo = int_to_fixed(64);
+			yo = -xo * nTan;
+		}
+		// Looking straight up or down
+		else if (fabs(fixed_to_float(ra) - PI / 2) < 0.0001 || fabs(fixed_to_float(ra) - 3 * PI / 2) < 0.0001)
+		{
+			rx = ray.src->x;
+			ry = ray.src->y;
+			dof = 8;  // Max out the depth of field (no intersection)
+		}
 
-// 		// Calculate distance projected on camera direction (Euclidean distance would give fisheye effect)
-// 		if (side == 0)
-// 			perpWallDist = (sideDistX - deltaDistX);
-// 		else
-// 			perpWallDist = (sideDistY - deltaDistY);
-
-// 		x++;
-// 	}
-// 	return (perpWallDist);
-// }
+		// Vertical ray-casting loop
+		while (dof < 8)
+		{
+			mx = fixed_to_int(rx) >> 6;
+			my = fixed_to_int(ry) >> 6;
+			// Bounds checking (make sure we're inside the grid)
+			if (mx >= 0 && mx < plane.width && my >= 0 && my < plane.heigth)
+			{
+				// Check if the ray hit something in the grid (non-zero means a hit)
+				if (plane.grid[my][mx] != NULL) 
+				{
+					dof = 8; // Stop when a hit is detected
+					crash.p.x = rx;
+					crash.p.y = ry;
+					crash.distance = sqrtf((fixed_to_float(rx - ray.src->x)) * (fixed_to_float(rx - ray.src->x)) + (fixed_to_float(ry - ray.src->y)) * (fixed_to_float(ry - ray.src->y)));
+				}
+				else
+				{
+					rx += xo;
+					ry += yo;
+					dof += 1;
+				}
+			}
+			else
+			{
+				dof = 8; // Out of bounds
+			}
+		}
+		r++;
+	}
+	return crash;
+}
