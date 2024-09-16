@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/16 12:06:16 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/16 15:36:54 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # define WIDTH 600
 # define FOV 70
 # define RAY_NBR 140
-# define TURN 5
-# define STEP 0.5
+# define TURN 2
+# define STEP 0.05
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -101,13 +101,13 @@ void	destroy_obj(t_object obj);
 
 // Raycaster
 void	draw_mini(t_cub	*cub);
-void	pcopy(t_point *dst, t_point src);
 
 // Player Functions
 void	init_player(t_cub *cub, int x, int y, char d);
-void	key_hook(mlx_key_data_t key, void *cub);
+void	key_hook(void *cub);
 
 t_fixed	normalize(t_fixed angle);
 void	flood_fill(t_cub *cub, t_point p, uint32_t limit, uint32_t fill);
+void	pcopy(t_point *dst, t_point src);
 
 #endif
