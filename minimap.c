@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:02:50 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/16 11:04:53 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/16 12:27:32 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,36 +113,41 @@ void	draw_mini(t_cub	*cub)
 		}
 	}
 	draw_player(cub);
+	flood_fill(cub, cub->p->p, 94702, 94702);
 }
 
-void	rec_fill(mlx_image_t *img, uint32_t pos[2], uint8_t lim[2], uint32_t col)
+void	rec_fill(mlx_image_t *img, uint32_t pos[2], uint8_t lim[8], uint32_t col)
 {
 	uint8_t* pixel;
-	uint8_t
 
-	MLX_NONNULL(img);
-	MLX_ASSERT(pos[0] < img->width, "Pixel is out of bounds");
-	MLX_ASSERT(pos[1] < img->height, "Pixel is out of bounds");
-	pixel = &img->pixels[(pos[1] * img->width + pos[0]) * sizeof(int32_t)];
+
+	if (img && pos[0] < img->width && pos[1] < img->height && pos[0] >=0 && pos[1] >= 0 && col)
+	{
+		pixel = &img->pixels[(pos[1] * img->width + pos[0]) * sizeof(int32_t)];
+		if ((pixel[0] != lim[0] || pixel[1] != lim[1] || pixel[2] != lim[2] || pixel[3] != lim[3]) && (pixel[0] != lim[4] || pixel[1] != lim[5] || pixel[2] != lim[6] || pixel[3] != lim[7]))
+		{
+			mlx_put_pixel(img, pos[0], pos[1], col);
+			rec_fill(img, (uint32_t[2]){pos[0] + 1, pos[1]}, lim, col);
+			rec_fill(img, (uint32_t[2]){pos[0] - 1, pos[1]}, lim, col);
+			rec_fill(img, (uint32_t[2]){pos[0], pos[1] - 1}, lim, col);
+			rec_fill(img, (uint32_t[2]){pos[0], pos[1] + 1}, lim, col);
+		}
+	}
 }
 void	flood_fill(t_cub *cub, t_point p, uint32_t limit, uint32_t fill)
 {
 	uint32_t	pos[2];
 	uint8_t	lim[8];
-	uint8_t	*temp;
 	
-	pos[0] = fixed_to_int(p.x);
-	pos[1] = fixed_to_int(p.y);
-	temp = &lim[0];
-	*(temp++) = (uint8_t)(limit >> 24);
-	*(temp++) = (uint8_t)(limit >> 16);
-	*(temp++) = (uint8_t)(limit >> 8);
-	*(temp++) = (uint8_t)(limit & 0xFF);
-	temp = &lim[4];
-	*(temp++) = (uint8_t)(limit >> 24);
-	*(temp++) = (uint8_t)(limit >> 16);
-	*(temp++) = (uint8_t)(limit >> 8);
-	*(temp++) = (uint8_t)(limit & 0xFF);
-	printf("%i\n", temp[2]);
+	pos[0] = (fixed_to_float(p.x) / p.plane->width) * cub->img[0]->width;
+	pos[1] = (fixed_to_float(p.y) / p.plane->heigth) * cub->img[0]->height;
+	lim[0] = (uint8_t)(limit >> 24);
+	lim[1] = (uint8_t)(limit >> 16);
+	lim[2] = (uint8_t)(limit >> 8);
+	lim[3] = (uint8_t)(limit & 0xFF);
+	lim[4] = (uint8_t)(fill >> 24);
+	lim[5] = (uint8_t)(fill >> 16);
+	lim[6] = (uint8_t)(fill >> 8);
+	lim[7] = (uint8_t)(fill & 0xFF);
 	rec_fill(cub->img[0], pos, lim, fill);
 }
