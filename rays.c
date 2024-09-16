@@ -6,142 +6,102 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:36:37 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/16 15:44:37 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:19:31 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-#define P2 (int_to_fixed(PI / 2))
-#define P3 (int_to_fixed(3 * PI / 2))
-
-t_crash cast_ray(t_ray ray, t_plane plane, t_crash crash)
+t_crash rec_ray(t_ray ray, t_point point, t_fixed xdelta, t_fixed ydelta)
 {
-	int mx, my; // Grid position
-	int dof;    // Depth of field (how many iterations we've done)
-	t_fixed rx, ry; // Ray X and Y positions in fixed-point
-	t_fixed ra;   // Ray angle in fixed-point
-	t_fixed xo, yo; // X and Y increments (step size) in fixed-point
-	int r = 0;
+	t_crash ret;
 
-	ra = float_to_fixed(ray.angle); // Convert ray angle to fixed-point
-
-	while (r < 1) // Outer loop for raycasting
+	while (1)
 	{
-		// Horizontal raycasting
-		dof = 0;
-		t_fixed aTan = f_tan(int_to_fixed(-1) / ra); // atan for fixed-point
-
-		// Looking down (ray direction is downward)
-		if (fixed_to_float(ra) > PI)
+		if (paccess(point))
 		{
-			ry = int_to_fixed(((int)fixed_to_int(ray.src->y) >> 6) << 6) - int_to_fixed(0.0001);
-			rx = (ray.src->y - ry) * aTan + ray.src->x;
-			yo = int_to_fixed(-64);
-			xo = -yo * aTan;
+			ret.dir = 'c';
+			ret.distance = distance(*ray.src, point);
+			ret.p = point;
+			ret.obj = paccess(point);
+			return (ret);
 		}
-		// Looking up (ray direction is upward)
-		else if (fixed_to_float(ra) < PI)
-		{
-			ry = int_to_fixed(((int)fixed_to_int(ray.src->y) >> 6) << 6) + int_to_fixed(64);
-			rx = (ray.src->y - ry) * aTan + ray.src->x;
-			yo = int_to_fixed(64);
-			xo = -yo * aTan;
-		}
-		// Looking straight left or right (no horizontal intersection)
-		else if (fabs(fixed_to_float(ra) - PI) < 0.0001 || fabs(fixed_to_float(ra)) < 0.0001)
-		{
-			rx = ray.src->x;
-			ry = ray.src->y;
-			dof = 8;  // Max out the depth of field (no intersection)
-		}
-
-		// Horizontal ray-casting loop
-		while (dof < 8)
-		{
-			mx = fixed_to_int(rx) >> 6;
-			my = fixed_to_int(ry) >> 6;
-			// Bounds checking (make sure we're inside the grid)
-			if (mx >= 0 && mx < plane.width && my >= 0 && my < plane.heigth)
-			{
-				// Check if the ray hit something in the grid (non-zero means a hit)
-				if (plane.grid[my][mx] != NULL) 
-				{
-					dof = 8; // Stop when a hit is detected
-					crash.p.x = rx;
-					crash.p.y = ry;
-					crash.distance = sqrtf((fixed_to_float(rx - ray.src->x)) * (fixed_to_float(rx - ray.src->x)) + (fixed_to_float(ry - ray.src->y)) * (fixed_to_float(ry - ray.src->y)));
-				}
-				else
-				{
-					rx += xo;
-					ry += yo;
-					dof += 1;
-				}
-			}
-			else
-			{
-				dof = 8; // Out of bounds
-			}
-		}
-
-		// Vertical raycasting
-		dof = 0;
-		t_fixed nTan = f_tan(ra); // tan for fixed-point
-
-		// Looking left
-		if (fixed_to_float(ra) > PI / 2 && fixed_to_float(ra) < 3 * PI / 2)
-		{
-			rx = int_to_fixed(((int)fixed_to_int(ray.src->x) >> 6) << 6) - int_to_fixed(0.0001);
-			ry = (ray.src->x - rx) * nTan + ray.src->y;
-			xo = int_to_fixed(-64);
-			yo = -xo * nTan;
-		}
-		// Looking right
-		else if (fixed_to_float(ra) < PI / 2 || fixed_to_float(ra) > 3 * PI / 2)
-		{
-			rx = int_to_fixed(((int)fixed_to_int(ray.src->x) >> 6) << 6) + int_to_fixed(64);
-			ry = (ray.src->x - rx) * nTan + ray.src->y;
-			xo = int_to_fixed(64);
-			yo = -xo * nTan;
-		}
-		// Looking straight up or down
-		else if (fabs(fixed_to_float(ra) - PI / 2) < 0.0001 || fabs(fixed_to_float(ra) - 3 * PI / 2) < 0.0001)
-		{
-			rx = ray.src->x;
-			ry = ray.src->y;
-			dof = 8;  // Max out the depth of field (no intersection)
-		}
-
-		// Vertical ray-casting loop
-		while (dof < 8)
-		{
-			mx = fixed_to_int(rx) >> 6;
-			my = fixed_to_int(ry) >> 6;
-			// Bounds checking (make sure we're inside the grid)
-			if (mx >= 0 && mx < plane.width && my >= 0 && my < plane.heigth)
-			{
-				// Check if the ray hit something in the grid (non-zero means a hit)
-				if (plane.grid[my][mx] != NULL) 
-				{
-					dof = 8; // Stop when a hit is detected
-					crash.p.x = rx;
-					crash.p.y = ry;
-					crash.distance = sqrtf((fixed_to_float(rx - ray.src->x)) * (fixed_to_float(rx - ray.src->x)) + (fixed_to_float(ry - ray.src->y)) * (fixed_to_float(ry - ray.src->y)));
-				}
-				else
-				{
-					rx += xo;
-					ry += yo;
-					dof += 1;
-				}
-			}
-			else
-			{
-				dof = 8; // Out of bounds
-			}
-		}
-		r++;
+		point.x += xdelta;
+		point.y += ydelta;
 	}
-	return crash;
+}
+
+t_crash	castray_X(int xsign, t_ray ray, t_point point)
+{
+	t_fixed	xdelta;
+	t_fixed	ydelta;
+
+	xdelta = int_to_fixed(xsign);
+	ydelta = f_mult(f_tan(ray.angle), xdelta);
+	return (rec_ray(ray, point, xdelta, ydelta));
+}
+
+t_crash	castray_Y(int ysign, t_ray ray, t_point point)
+{
+	t_fixed	xdelta;
+	t_fixed	ydelta;
+
+	ydelta = int_to_fixed(ysign);
+	xdelta = f_div(f_tan(ydelta), ray.angle);
+	return (rec_ray(ray, point, xdelta, ydelta));
+}
+
+t_crash	cast_ray(t_ray ray)
+{
+	t_crash crash[2];
+	int		xsign;
+	int		ysign;
+
+	xsign = -1;
+	ysign = -1;
+	if (ray.angle > 0 && ray.angle < int_to_fixed(200))
+		ysign = 1;
+	else if (ray.angle == 0 || ray.angle == int_to_fixed(200))
+		ysign = 0;
+	if (ray.angle < int_to_fixed(100) || ray.angle > int_to_fixed(300))
+		xsign = 1;
+	else if (ray.angle == int_to_fixed(100) || ray.angle == int_to_fixed(300))
+		xsign = 0;
+	if (xsign)
+		crash[0] = castray_X(xsign, ray, calc_coll(ray, xsign, 'x'));
+	if (ysign)
+		crash[1] = castray_Y(ysign, ray, calc_coll(ray, ysign, 'y'));
+	if (!xsign)
+		return (crash[1]);
+	if (!ysign)
+		return (crash[0]);
+	if (crash[0].distance < crash[1].distance)
+		return (crash[0]);
+	return (crash[1]);
+}
+
+t_point	calc_coll(t_ray ray, int sign, char mode)
+{
+	t_point ret;
+	t_fixed temp;
+
+	if (mode == 'x')
+	{
+		ret.x = ray.src->x >> 16;
+		ret.x = ret.x << 16;
+		if (sign == 1)
+			ret.x += int_to_fixed(1);
+		temp = ret.x - ray.src->x;
+		ret.y = ray.src->y + f_mult(f_tan(ray.angle), temp);
+	}
+	else
+	{
+		ret.y = ray.src->y >> 16;
+		ret.y = ret.y << 16;
+		if (sign == 1)
+			ret.y += int_to_fixed(1);
+		temp = ret.y - ray.src->y;
+		ret.x = ray.src->x + f_div(temp, f_tan(ray.angle));
+	}
+	return (ret);
 }
