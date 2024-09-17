@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 11:12:59 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 12:00:26 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,14 @@ int main(void)
 		write(2, "Invalid map\n", 12);
 		return (1);
 	}
-	p.angle = int_to_fixed(190);
+	p.p.x = 358050;
+	p.p.y = 788876;
+	p.angle = 22544384;
+	// p.angle = int_to_fixed(190);
+	t_fixed delta = f_div(int_to_fixed(FOV), int_to_fixed(RAY_NBR));
 	for (int i = 0; i < RAY_NBR; i++)
 	{
-		p.view[i].angle = p.angle + (double_to_fixed((double)i / 4));
+		p.view[i].angle = normalize(p.angle + f_mult(delta, int_to_fixed(i - RAY_NBR / 2)));
 		p.view[i].src = &p.p;
 	}
 	cub.win = mlx_init(WIDTH, HEIGHT , "Cub3D", 1);
@@ -39,7 +43,7 @@ int main(void)
 		return (1);
 	}
 	mlx_set_window_title(cub.win, "Cub3D");
-	cub.img[0] = mlx_new_image(cub.win, WIDTH / 4, HEIGHT / 4);
+	cub.img[0] = mlx_new_image(cub.win, HEIGHT / 4, HEIGHT / 4);
 	if (!cub.img[0])
 		return (0);
 	if (mlx_image_to_window(cub.win, cub.img[0], 0, 0))

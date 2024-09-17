@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 11:16:16 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:40:14 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define CUB3D_H
 
 # define HEIGHT 1200
-# define WIDTH 1200
+# define WIDTH 2400
 # define FOV 70
-# define RAY_NBR 210
+# define RAY_NBR 2400
 # define TURN 2
 # define STEP 0.05
 
