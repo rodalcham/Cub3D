@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 11:12:11 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 11:16:16 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,22 @@ typedef struct	s_player
  */
 typedef struct	s_object
 {
-	char		*north;
-	char		*south;
-	char		*east;
-	char		*west;
-	char		*floor;
-	char		*ceiling;
-}				t_object;
+	char			*north;
+	char			*south;
+	char			*east;
+	char			*west;
+	char			*floor;
+	char			*ceiling;
+	mlx_texture_t	*north_texture;
+	mlx_texture_t	*south_texture;
+	mlx_texture_t	*east_texture;
+	mlx_texture_t	*west_texture;
 
+	mlx_image_t		*north_image;
+	mlx_image_t		*south_image;
+	mlx_image_t		*east_image;
+	mlx_image_t		*west_image;
+}				t_object;
 /** Our Cub3D Struct
  * @param WIN A pointer to the window
  * @param IMG An array of pointers to images
