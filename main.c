@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 13:48:18 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 14:27:08 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int main(void)
 		write(2, "Invalid map\n", 12);
 		return (1);
 	}
-	p.p.x = 358050;
-	p.p.y = 788876;
-	p.angle = 22544384;
+	p.p.x = 519085;
+	p.p.y = 882240;
+	p.angle = 15597568;
 	// p.angle = int_to_fixed(190);
 	t_fixed delta = f_div(int_to_fixed(FOV), int_to_fixed(RAY_NBR));
 	for (int i = 0; i < RAY_NBR; i++)
@@ -43,7 +43,7 @@ int main(void)
 		return (1);
 	}
 	mlx_set_window_title(cub.win, "Cub3D");
-	cub.img[0] = mlx_new_image(cub.win, HEIGHT/4, HEIGHT/4);
+	cub.img[0] = mlx_new_image(cub.win, HEIGHT, HEIGHT);
 	cub.img[1] = mlx_new_image(cub.win, HEIGHT, WIDTH);
 	if (!cub.img[0])
 		return (0);
