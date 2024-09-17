@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:36:37 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 14:39:45 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 15:18:39 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_point	calc_coll(t_ray ray, int sign[2], char mode);
 
-t_crash rec_ray(t_ray ray, t_point point, t_fixed xdelta, t_fixed ydelta)
+t_crash rec_ray(t_ray ray, t_point point, t_fixed delta[2], char dir)
 {
 	t_crash ret;
 
@@ -22,16 +22,16 @@ t_crash rec_ray(t_ray ray, t_point point, t_fixed xdelta, t_fixed ydelta)
 	{
 		if (paccess(point))
 		{
-			ret.dir = 'c';
+			ret.dir = dir;
 			ret.distance = distance(*ray.src, point);
 			ret.p = point;
 			ret.obj = paccess(point);
 			return (ret);
 		}
-		point.x += xdelta;
-		point.y += ydelta;
+		point.x += delta[0];
+		point.y += delta[1];
 	}
-	ret.dir = 'c';
+	ret.dir = dir;
 	ret.distance = distance(*ray.src, point);
 	ret.p = point;
 	ret.obj = paccess(point);
@@ -40,25 +40,27 @@ t_crash rec_ray(t_ray ray, t_point point, t_fixed xdelta, t_fixed ydelta)
 
 t_crash	castray_X(int xsign, t_ray ray, t_point point)
 {
-	t_fixed	xdelta;
-	t_fixed	ydelta;
+	t_fixed	delta[2];
 
-	xdelta = int_to_fixed(xsign);
-	ydelta = f_mult(f_tan(ray.angle), xdelta);
-	return (rec_ray(ray, point, xdelta, ydelta));
+	delta[0] = int_to_fixed(xsign);
+	delta[1] = f_mult(f_tan(ray.angle), delta[0]);
+	if (xsign > 0)
+		return (rec_ray(ray, point, delta, 'W'));
+	return (rec_ray(ray, point, delta, 'E'));
 }
 
 t_crash	castray_Y(int ysign, t_ray ray, t_point point)
 {
-	t_fixed	xdelta;
-	t_fixed	ydelta;
+	t_fixed	delta[2];
 
-	ydelta = int_to_fixed(ysign);
+	delta[1] = int_to_fixed(ysign);
 	if (f_tan(ray.angle) < int_to_fixed(1000))
-		xdelta = f_div(ydelta, f_tan(ray.angle));
+		delta[0] = f_div(delta[1], f_tan(ray.angle));
 	else 
-		xdelta = 0;
-	return (rec_ray(ray, point, xdelta, ydelta));
+		delta[0] = 0;
+	if (ysign > 0)
+		return (rec_ray(ray, point, delta, 'S'));
+	return (rec_ray(ray, point, delta, 'N'));
 }
 
 t_crash	cast_ray(t_ray ray)
