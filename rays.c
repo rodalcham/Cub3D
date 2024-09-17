@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:36:37 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 08:18:31 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/17 10:50:29 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ t_crash	castray_Y(int ysign, t_ray ray, t_point point)
 	t_fixed	ydelta;
 
 	ydelta = int_to_fixed(ysign);
-	if (ray.angle == int_to_fixed(Q2) )
-	xdelta = f_div(ydelta, f_tan(ray.angle));
+	if (f_tan(ray.angle) < int_to_fixed(1000))
+		xdelta = f_div(ydelta, f_tan(ray.angle));
+	else 
+		xdelta = 0;
 	return (rec_ray(ray, point, xdelta, ydelta));
 }
 
@@ -65,16 +67,16 @@ t_crash	cast_ray(t_ray ray)
 	int		xsign;
 	int		ysign;
 
-	xsign = -1;
-	ysign = -1;
-	if (ray.angle > int_to_fixed(0) && ray.angle < int_to_fixed(200))
+	xsign = 0;
+	ysign = 0;
+	if (ray.angle > int_to_fixed(1) && ray.angle < int_to_fixed(199))
 		ysign = 1;
-	else if (ray.angle == int_to_fixed(0) || ray.angle == int_to_fixed(200))
-		ysign = 0;
-	if (ray.angle < int_to_fixed(100) || ray.angle > int_to_fixed(300))
+	else if (ray.angle > (int_to_fixed(201)) &&  ray.angle < int_to_fixed(399))
+		ysign = -1;
+	if (ray.angle < int_to_fixed(99) || ray.angle > int_to_fixed(301))
 		xsign = 1;
-	else if (ray.angle == int_to_fixed(100) || ray.angle == int_to_fixed(300))
-		xsign = 0;
+	else if (ray.angle > int_to_fixed(101) && ray.angle < int_to_fixed(299))
+		xsign = -1;
 	if (xsign)
 		crash[0] = castray_X(xsign, ray, calc_coll(ray, xsign, 'x'));
 	if (ysign)
