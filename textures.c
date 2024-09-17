@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 10:49:34 by mbankhar          #+#    #+#             */
-/*   Updated: 2024/09/17 11:28:19 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:38:09 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,27 @@ void	texture_to_image(t_object *object)
 			object->south_texture);
 	if (!object->south_image)
 		write(1, "Error converting south tex to img", 32);
+}
+
+// typedef	struct crash_s
+// {
+// 	void		*obj;
+// 	t_point		p;
+// 	t_fixed		distance;
+// 	char		dir;
+// }				t_crash;
+void	draw_walls(t_object object, t_crash crash, t_player player, t_cub cub)
+{
+    for (int x = 0; x < WIDTH; x++)
+	{
+		float ray_angle = player.angle - FOV / 2 + (float)x / (float)WIDTH * FOV;
+		float corrected_distance = crash.distance * cos(ray_angle - player.angle);
+		int wall_height = (int)(HEIGHT / corrected_distance);
+		int wall_start = HEIGHT / 2 - wall_height / 2;
+		int wall_end = wall_start + wall_height;
+		for (int y = wall_start; y < wall_end; y++)
+		{
+			mlx_put_pixel(cub.img[1], x, y, "#FF0000");
+		}
+	}
 }
