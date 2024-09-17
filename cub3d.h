@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 08:11:16 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/17 11:12:11 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define HEIGHT 600
-# define WIDTH 600
+# define HEIGHT 1200
+# define WIDTH 1200
 # define FOV 70
 # define RAY_NBR 210
 # define TURN 2

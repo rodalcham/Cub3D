@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 10:31:46 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 11:12:59 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ int main(void)
 		p.view[i].angle = p.angle + (double_to_fixed((double)i / 4));
 		p.view[i].src = &p.p;
 	}
-	cub.win = mlx_init(WIDTH, HEIGHT, "Cub3D", 1);
+	cub.win = mlx_init(WIDTH, HEIGHT , "Cub3D", 1);
 	if (!cub.win)
 	{
 		write(2, "MLX error\n", 10);
 		return (1);
 	}
 	mlx_set_window_title(cub.win, "Cub3D");
-	cub.img[0] = mlx_new_image(cub.win, WIDTH, HEIGHT);
+	cub.img[0] = mlx_new_image(cub.win, WIDTH / 4, HEIGHT / 4);
 	if (!cub.img[0])
 		return (0);
 	if (mlx_image_to_window(cub.win, cub.img[0], 0, 0))
