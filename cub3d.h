@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 11:16:16 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:22:14 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct	s_object
 	char			*west;
 	char			*floor;
 	char			*ceiling;
+	mlx_t			*mlxpointer;
 	mlx_texture_t	*north_texture;
 	mlx_texture_t	*south_texture;
 	mlx_texture_t	*east_texture;
