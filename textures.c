@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 10:49:34 by mbankhar          #+#    #+#             */
-/*   Updated: 2024/09/17 14:10:04 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 15:16:21 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,47 @@ void	texture_to_image(t_object *object)
 		write(1, "Error converting south tex to img", 32);
 }
 
-// typedef	struct crash_s
-// {
-// 	void		*obj;
-// 	t_point		p;
-// 	t_fixed		distance;
-// 	char		dir;
-// }				t_crash;
-void	draw_walls(t_crash crash, t_cub cub)
+void draw_walls(t_crash crash, t_cub cub)
 {
-    for (int x = 0; x < WIDTH; x++)
+	static int frame_counter = 0;
+	const int frame_interval = 50;
+
+	frame_counter++;
+
+	if (frame_counter % frame_interval == 0)
 	{
-		// float ray_angle = fixed_to_float(player.angle) - FOV / 2 + (float)x / (float)WIDTH * FOV;
-		float corrected_distance = fixed_to_float(crash.distance);
-		int wall_height = (int)(HEIGHT / corrected_distance);
-		int wall_start = HEIGHT / 2 - wall_height / 2;
-		int wall_end = wall_start + wall_height;
-		for (int y = wall_start; y < wall_end; y++)
+		for (int x = 0; x < WIDTH; x++)
 		{
-			mlx_put_pixel(cub.img[1], x, y, 424242);
-			// printf("%i :: %i\n", x, y);
+			float ray_angle = cub.p->angle;
+			float player_angle = cub.p->angle;
+			int corrected_distance = fixed_to_int(crash.distance) * cos(ray_angle - player_angle);
+			if (corrected_distance <= 0) 
+				corrected_distance = 1;
+
+			int wall_height = (int)(HEIGHT / corrected_distance);
+			int wall_start = HEIGHT / 2 - wall_height / 2;
+			int wall_end = wall_start + wall_height;
+
+			if (wall_start < 0)
+				wall_start = 0;
+			if (wall_end >= HEIGHT)
+				wall_end = HEIGHT - 1;
+
+			int y = 0;
+			while (y < HEIGHT)
+			{
+				if (y >= wall_start && y < wall_end && crash.dir == 'N')
+					mlx_put_pixel(cub.img[1], x, y, 424242);
+				if (y >= wall_start && y < wall_end && crash.dir == 'S')
+					mlx_put_pixel(cub.img[1], x, y, 02550);
+				if (y >= wall_start && y < wall_end && crash.dir == 'E')
+					mlx_put_pixel(cub.img[1], x, y, 25500);
+				if (y >= wall_start && y < wall_end && crash.dir == 'W')
+					mlx_put_pixel(cub.img[1], x, y, 2552550);
+				else
+					mlx_put_pixel(cub.img[1], x, y, 1);
+				y++;
+			}
 		}
 	}
 }
