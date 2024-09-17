@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:02:50 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 12:09:36 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 13:27:58 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ void	draw_player(t_cub *cub)
 	draw_line(cub, p[0], p[3]);
 	draw_line(cub, p[1], p[2]);
 	draw_line(cub, p[1], p[3]);
-	// for (int i = 0; i < RAY_NBR; i++)
-	// {
-		x = cast_ray(cub->p->view[2025]);
+	for (int i = 0; i < RAY_NBR; i++)
+	{
+		x = cast_ray(cub->p->view[i]);
 		draw_line(cub, cub->p->p, x.p);
-	// }
+	}
 }
 
 void	draw_mini(t_cub	*cub)
