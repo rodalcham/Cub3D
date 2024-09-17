@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 14:27:08 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 14:58:05 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int main(void)
 		return (1);
 	}
 	mlx_set_window_title(cub.win, "Cub3D");
-	cub.img[0] = mlx_new_image(cub.win, HEIGHT, HEIGHT);
+	cub.img[0] = mlx_new_image(cub.win, HEIGHT / 4, HEIGHT / 4);
 	cub.img[1] = mlx_new_image(cub.win, HEIGHT, WIDTH);
 	if (!cub.img[0])
 		return (0);
