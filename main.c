@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 13:18:35 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 13:48:18 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,13 @@ int main(void)
 		return (1);
 	}
 	mlx_set_window_title(cub.win, "Cub3D");
-	cub.img[0] = mlx_new_image(cub.win, HEIGHT, HEIGHT);
+	cub.img[0] = mlx_new_image(cub.win, HEIGHT/4, HEIGHT/4);
+	cub.img[1] = mlx_new_image(cub.win, HEIGHT, WIDTH);
 	if (!cub.img[0])
 		return (0);
 	if (mlx_image_to_window(cub.win, cub.img[0], 0, 0))
+		return (0);
+	if (mlx_image_to_window(cub.win, cub.img[1], 0, 0))
 		return (0);
 	mlx_loop_hook(cub.win, key_hook, &cub);
 	mlx_loop(cub.win);

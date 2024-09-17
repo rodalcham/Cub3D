@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:36:37 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 13:37:18 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 14:03:38 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,10 @@ t_point	calc_coll(t_ray ray, int sign, char mode)
 		if (sign == 1)
 			ret.x += int_to_fixed(1);
 		else
+		{
 			ret.x -= 2;
+			ret.y--;
+		}
 		ret.x++;
 		temp = ret.x - ray.src->x;
 		ret.y = ray.src->y + f_mult(f_tan(ray.angle), temp);
@@ -115,7 +118,10 @@ t_point	calc_coll(t_ray ray, int sign, char mode)
 		if (sign == 1)
 			ret.y += int_to_fixed(1);
 		else
+		{
 			ret.y -= 2;
+			ret.x--;
+		}
 		ret.y++;
 		temp = ret.y - ray.src->y;
 		ret.x = ray.src->x + f_div(temp, f_tan(ray.angle));

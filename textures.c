@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 10:49:34 by mbankhar          #+#    #+#             */
-/*   Updated: 2024/09/17 13:38:09 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:10:04 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,19 @@ void	texture_to_image(t_object *object)
 // 	t_fixed		distance;
 // 	char		dir;
 // }				t_crash;
-void	draw_walls(t_object object, t_crash crash, t_player player, t_cub cub)
+void	draw_walls(t_crash crash, t_cub cub)
 {
     for (int x = 0; x < WIDTH; x++)
 	{
-		float ray_angle = player.angle - FOV / 2 + (float)x / (float)WIDTH * FOV;
-		float corrected_distance = crash.distance * cos(ray_angle - player.angle);
+		// float ray_angle = fixed_to_float(player.angle) - FOV / 2 + (float)x / (float)WIDTH * FOV;
+		float corrected_distance = fixed_to_float(crash.distance);
 		int wall_height = (int)(HEIGHT / corrected_distance);
 		int wall_start = HEIGHT / 2 - wall_height / 2;
 		int wall_end = wall_start + wall_height;
 		for (int y = wall_start; y < wall_end; y++)
 		{
-			mlx_put_pixel(cub.img[1], x, y, "#FF0000");
+			mlx_put_pixel(cub.img[1], x, y, 424242);
+			// printf("%i :: %i\n", x, y);
 		}
 	}
 }

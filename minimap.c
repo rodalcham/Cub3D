@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:02:50 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 13:27:58 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 14:06:49 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	draw_player(t_cub *cub)
 	{
 		x = cast_ray(cub->p->view[i]);
 		draw_line(cub, cub->p->p, x.p);
+		draw_walls(x, *cub);
 	}
 }
 
