@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 15:23:51 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:46:21 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,6 @@ void	flood_fill(t_cub *cub, t_point p, uint32_t limit, uint32_t fill);
 void	pcopy(t_point *dst, t_point src);
 t_crash	cast_ray(t_ray ray);
 void	draw_walls(t_crash crash, t_cub cub, int i);
+void	load_textures(t_object *object);
 
 #endif
