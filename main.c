@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/16 21:59:29 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/17 08:16:49 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@ int main(void)
 
 	cub.wall = &obj;
 	cub.p = &p;
+	normalize()
 	if (obj_init(&obj, &cub, "map.cub") < 0)
 	{
 		write(2, "Invalid map\n", 12);
 		return (1);
 	}
+	p.angle = int_to_fixed(190);
 	for (int i = 0; i < RAY_NBR; i++)
 	{
-		p.view[i].angle = int_to_fixed(390);
+		p.view[i].angle = p.angle + (double_to_fixed((double)i / 4));
 		p.view[i].src = &p.p;
 	}
 	cub.win = mlx_init(WIDTH, HEIGHT, "Cub3D", 1);

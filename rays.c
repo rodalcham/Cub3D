@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:36:37 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/16 21:58:38 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/17 08:18:31 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_crash	castray_Y(int ysign, t_ray ray, t_point point)
 	t_fixed	ydelta;
 
 	ydelta = int_to_fixed(ysign);
+	if (ray.angle == int_to_fixed(Q2) )
 	xdelta = f_div(ydelta, f_tan(ray.angle));
 	return (rec_ray(ray, point, xdelta, ydelta));
 }
@@ -66,9 +67,9 @@ t_crash	cast_ray(t_ray ray)
 
 	xsign = -1;
 	ysign = -1;
-	if (ray.angle > 0 && ray.angle < int_to_fixed(200))
+	if (ray.angle > int_to_fixed(0) && ray.angle < int_to_fixed(200))
 		ysign = 1;
-	else if (ray.angle == 0 || ray.angle == int_to_fixed(200))
+	else if (ray.angle == int_to_fixed(0) || ray.angle == int_to_fixed(200))
 		ysign = 0;
 	if (ray.angle < int_to_fixed(100) || ray.angle > int_to_fixed(300))
 		xsign = 1;
