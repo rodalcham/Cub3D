@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 11:40:14 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 12:17:22 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct	s_object
 	char			*west;
 	char			*floor;
 	char			*ceiling;
+	mlx_t			*mlxpointer;
 	mlx_texture_t	*north_texture;
 	mlx_texture_t	*south_texture;
 	mlx_texture_t	*east_texture;

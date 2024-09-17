@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 10:49:34 by mbankhar          #+#    #+#             */
-/*   Updated: 2024/09/17 11:15:26 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:28:19 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,20 @@ void	load_textures(t_object *object)
 
 void	texture_to_image(t_object *object)
 {
-	object->east_image = mlx_texture_to_image()
+	object->east_image = mlx_texture_to_image(object->mlxpointer,
+			object->east_texture);
+	if (!object->east_image)
+		write(1, "Error converting east tex to img", 33);
+	object->west_image = mlx_texture_to_image(object->mlxpointer,
+			object->west_texture);
+	if (!object->west_image)
+		write(1, "Error converting west tex to img", 33);
+	object->north_image = mlx_texture_to_image(object->mlxpointer,
+			object->north_texture);
+	if (!object->north_image)
+		write(1, "Error converting north tex to img", 32);
+	object->south_image = mlx_texture_to_image(object->mlxpointer,
+			object->south_texture);
+	if (!object->south_image)
+		write(1, "Error converting south tex to img", 32);
 }
