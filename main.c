@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 14:58:05 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 15:28:46 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int main(void)
 	}
 	mlx_set_window_title(cub.win, "Cub3D");
 	cub.img[0] = mlx_new_image(cub.win, HEIGHT / 4, HEIGHT / 4);
-	cub.img[1] = mlx_new_image(cub.win, HEIGHT, WIDTH);
+	cub.img[1] = mlx_new_image(cub.win, WIDTH, HEIGHT);
 	if (!cub.img[0])
 		return (0);
 	if (mlx_image_to_window(cub.win, cub.img[0], 0, 0))

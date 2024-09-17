@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 13:56:22 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 15:23:51 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,6 @@ t_fixed	normalize(t_fixed angle);
 void	flood_fill(t_cub *cub, t_point p, uint32_t limit, uint32_t fill);
 void	pcopy(t_point *dst, t_point src);
 t_crash	cast_ray(t_ray ray);
-void	draw_walls(t_crash crash, t_cub cub);
+void	draw_walls(t_crash crash, t_cub cub, int i);
 
 #endif

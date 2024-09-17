@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:02:50 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 14:38:10 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/17 15:23:38 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	draw_player(t_cub *cub)
 	{
 		x = cast_ray(cub->p->view[i]);
 		draw_line(cub, cub->p->p, x.p);
-		// draw_walls(x, *cub);
+		draw_walls(x, *cub, i);
 	}
 }
 
