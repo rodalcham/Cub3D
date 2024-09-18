@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:36:37 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 15:18:39 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/18 09:00:30 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,7 @@ t_point	calc_coll(t_ray ray, int sign[2], char mode)
 		ret.x = ray.src->x >> 16;
 		ret.x = ret.x << 16;
 		if (sign[0] == 1)
-			ret.x += int_to_fixed(1);
-		ret.x += 5;
+			ret.x += int_to_fixed(1) + 5;
 		temp = ret.x - ray.src->x;
 		ret.y = ray.src->y + f_mult(f_tan(ray.angle), temp);
 	}
@@ -112,14 +111,13 @@ t_point	calc_coll(t_ray ray, int sign[2], char mode)
 		ret.y = ray.src->y >> 16;
 		ret.y = ret.y << 16;
 		if (sign[1] == 1)
-			ret.y += int_to_fixed(1);
-		ret.y += 5;
+			ret.y += int_to_fixed(1) + 5;
 		temp = ret.y - ray.src->y;
 		ret.x = ray.src->x + f_div(temp, f_tan(ray.angle));
 	}
-	if (sign[0] < 1)
-		ret.x -= 10;
-	if (sign[1] < 1)
-		ret.y -= 10;
+	if (sign[0] == -1)
+		ret.x -= 5;
+	if (sign[1] == -1)
+		ret.y -= 5;
 	return (ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 10:49:34 by mbankhar          #+#    #+#             */
-/*   Updated: 2024/09/17 17:48:47 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/18 09:14:37 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,27 @@ unsigned int	get_pixel(mlx_texture_t *texture, int hei)
 	return (ret);
 }
 
+unsigned int	get_color(mlx_texture_t	*img, double x, double y)
+{
+	int	pos;
+	int	ret;
+	uint8_t	*temp;
+	int		i;
+
+	pos = (int)(y * img->heigth * img->width + x * img->width);
+	temp = &img->pixels[pos * sizeof(u_int32_t)];
+	i = -1;
+	while (++i < 4)
+	{
+		ret = ret << 8;
+		if (temp == 0)
+			ret = ret | 0;
+		else
+			ret = ret | temp[i];
+	}
+	return (ret);
+}
+
 void draw_walls(t_crash crash, t_cub cub, int x)
 {
 	double	corrected_distance = fixed_to_double(crash.distance);
@@ -76,33 +97,34 @@ void draw_walls(t_crash crash, t_cub cub, int x)
 	int		wall_start = HEIGHT / 2 - wall_height / 2;
 	int		wall_end = wall_start + wall_height;
 	int		y;
-	mlx_texture_t	*image;
-	int				pixel;
+	// mlx_texture_t	*image;
+	// int				pixel;
 
-	if (crash.dir == 'N')
-		image = cub.wall->north_texture;
-	else if (crash.dir == 'S')
-		image = cub.wall->south_texture;
-	else if (crash.dir == 'E')
-		image = cub.wall->east_texture;
-	else if (crash.dir == 'W')
-		image = cub.wall->west_texture;
-	if (corrected_distance <= 0)
-		corrected_distance = 1;
-	if (wall_start < 0)
-		wall_start = 0;
-	if (wall_end >= HEIGHT)
-		wall_end = HEIGHT - 1;
+	// if (crash.dir == 'N')
+	// 	image = cub.wall->north_texture;
+	// else if (crash.dir == 'S')
+	// 	image = cub.wall->south_texture;
+	// else if (crash.dir == 'E')
+	// 	image = cub.wall->east_texture;
+	// else if (crash.dir == 'W')
+	// 	image = cub.wall->west_texture;
+	// if (corrected_distance <= 0)
+	// 	corrected_distance = 1;
+	// if (wall_start < 0)
+	// 	wall_start = 0;
+	// if (wall_end >= HEIGHT)
+	// 	wall_end = HEIGHT - 1;
 	y = 0;
-	if (crash.dir == 'N' || crash.dir == 'S')
-		pixel = (fixed_to_double(crash.p.x) - fixed_to_int(crash.p.x)) * image->height;
-	if (crash.dir == 'E' || crash.dir == 'W')
-		pixel = (fixed_to_double(crash.p.y) - fixed_to_int(crash.p.y)) * image->height;
+	// if (crash.dir == 'N' || crash.dir == 'S')
+	// 	pixel = (fixed_to_double(crash.p.x) - fixed_to_int(crash.p.x)) * image->height;
+	// if (crash.dir == 'E' || crash.dir == 'W')
+	// 	pixel = (fixed_to_double(crash.p.y) - fixed_to_int(crash.p.y)) * image->height;
 	while (y < HEIGHT)
 	{
 		if (y >= wall_start && y < wall_end)
 		{
-			mlx_put_pixel(cub.img[1], x, y, get_pixel(image, pixel + (y * image->width)));
+			mlx_put_pixel(cub.img[1], x, y, 1291);
+			// mlx_put_pixel(cub.img[1], x, y, get_color(image, (double)x / RAY_NBR), (double)((y - wall_start) / wall_height));
 		}
 		else
 			mlx_put_pixel(cub.img[1], x, y, 0);

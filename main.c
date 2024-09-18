@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 16:45:43 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/18 08:54:51 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int main(void)
 		write(2, "MLX error\n", 10);
 		return (1);
 	}
-	load_textures(cub.wall);
+	// load_textures(cub.wall);
 	mlx_set_window_title(cub.win, "Cub3D");
 	cub.img[0] = mlx_new_image(cub.win, HEIGHT / 4, HEIGHT / 4);
 	cub.img[1] = mlx_new_image(cub.win, WIDTH, HEIGHT);
