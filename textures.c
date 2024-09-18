@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 10:49:34 by mbankhar          #+#    #+#             */
-/*   Updated: 2024/09/18 15:01:39 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/18 15:32:23 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	load_textures(t_object *object)
 {
-	object->east_texture = mlx_load_png("textures/walls/08.png");
+	object->east_texture = mlx_load_png(object->east);
 	if (!object->east_texture)
 		write (1, "Error loading east texture", 27);
-	object->west_texture = mlx_load_png("textures/walls/12.png");
+	object->west_texture = mlx_load_png(object->west);
 	if (!object->east_texture)
 		write (1, "Error loading east texture", 27);
-	object->north_texture = mlx_load_png("textures/walls/30.png");
+	object->north_texture = mlx_load_png(object->north);
 	if (!object->east_texture)
 		write (1, "Error loading east texture", 27);
-	object->south_texture = mlx_load_png("textures/walls/39.png");
+	object->south_texture = mlx_load_png(object->south);
 	if (!object->east_texture)
 		write (1, "Error loading east texture", 27);
 }
@@ -91,7 +91,7 @@ void draw_walls(t_crash crash, t_cub cub, int x, t_fixed angle)
 		if (y >= wall_start && y < wall_end)
 		{
 			xy[1] = double_to_fixed((y - wall_start) / (double)wall_height);
-			// get_color(image, xy, wh);
+			// get_color(image, xy, wh, cub.img[1]);
 			// mlx_put_pixel(cub.img[1], x, y++, get_color(image, xy, wh));
 			// mlx_put_pixel(cub.img[1], x, y++, get_color(image, xy, wh));
 			// mlx_put_pixel(cub.img[1], x, y++, get_color(image, xy, wh));

@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/18 14:07:57 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/18 15:17:47 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,6 @@ typedef struct	s_object
 	mlx_texture_t	*south_texture;
 	mlx_texture_t	*east_texture;
 	mlx_texture_t	*west_texture;
-
-	mlx_image_t		*north_image;
-	mlx_image_t		*south_image;
-	mlx_image_t		*east_image;
-	mlx_image_t		*west_image;
 }				t_object;
 /** Our Cub3D Struct
  * @param WIN A pointer to the window
