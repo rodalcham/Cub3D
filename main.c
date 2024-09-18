@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/18 12:42:14 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:10:29 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int main(void)
 
 	cub.wall = &obj;
 	cub.p = &p;
-	// normalize()
-	// map_check("map.cub");
+	printf("%lu\n", sizeof(uint32_t));
 	if (obj_init(&obj, &cub, "map.cub") < 0)
 	{
 		write(2, "Invalid map\n", 12);
