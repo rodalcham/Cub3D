@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:28:45 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/18 14:03:40 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:11:48 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ void	pcopy(t_point *dst, t_point src)
 
 int	frame_function(void)
 {
-	static double	previous_time;
+	static double	previous_time = 0.0;
 	double			current_time;
 	double			delta_time;
 	double			frame_time;
 
-	previous_time = 0.0;
-	frame_time = 1.0 / 60.0;
+	frame_time = 1.0 / 30.0;
 	current_time = mlx_get_time();
 	delta_time = current_time - previous_time;
 	if (delta_time >= frame_time)
