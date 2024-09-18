@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/18 16:04:14 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/18 16:51:01 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int main(void)
 
 	cub.wall = &obj;
 	cub.p = &p;
-	printf("%lu\n", sizeof(uint32_t));
 	if (obj_init(&obj, &cub, "map.cub") < 0)
 	{
 		write(2, "Invalid map\n", 12);
@@ -29,7 +28,6 @@ int main(void)
 	p.p.x = 519085;
 	p.p.y = 882240;
 	p.angle = 15597568;
-	// p.angle = int_to_fixed(190);
 	t_fixed delta = f_div(int_to_fixed(FOV), int_to_fixed(RAY_NBR));
 	for (int i = 0; i < RAY_NBR; i++)
 	{

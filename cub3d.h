@@ -6,12 +6,16 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/18 15:17:47 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/18 16:30:54 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# ifndef DEBUG
+#  define DEBUG 0
+# endif
 
 # define HEIGHT 1200
 # define WIDTH 2400

@@ -6,7 +6,7 @@
 #    By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/23 11:29:41 by rchavez@stu       #+#    #+#              #
-#    Updated: 2024/09/18 15:38:53 by rchavez          ###   ########.fr        #
+#    Updated: 2024/09/18 16:23:25 by rchavez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = Cub3D
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -I/usr/local/include -Ofast# -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I/usr/local/include -Ofast
 
 O_F = OBJ
 
@@ -85,4 +85,7 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : all, clean, fclean, re
+debug: CFLAGS += -g -fsanitize=address -DDEBUG=1
+debug: re
+
+.PHONY : all, clean, fclean, re, debug
