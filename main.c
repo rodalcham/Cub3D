@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/18 10:07:57 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/18 12:42:14 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int main(void)
 	cub.wall = &obj;
 	cub.p = &p;
 	// normalize()
+	// map_check("map.cub");
 	if (obj_init(&obj, &cub, "map.cub") < 0)
 	{
 		write(2, "Invalid map\n", 12);
