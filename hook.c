@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:12:11 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/17 13:43:33 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/18 11:28:05 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,7 @@ void	key_hook(void *tcub)
 		check_angles(cub);
 	if (mlx_is_key_down(cub->win, MLX_KEY_W) || mlx_is_key_down(cub->win, MLX_KEY_S) || mlx_is_key_down(cub->win, MLX_KEY_A) || mlx_is_key_down(cub->win, MLX_KEY_D))
 		check_wasd(cub);
+	if (!frame_function())
+		return;
 	draw_mini(cub);
 }

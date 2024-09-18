@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/17 16:46:21 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:20:21 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,6 @@ void	pcopy(t_point *dst, t_point src);
 t_crash	cast_ray(t_ray ray);
 void	draw_walls(t_crash crash, t_cub cub, int i);
 void	load_textures(t_object *object);
+int		frame_function(void);
 
 #endif

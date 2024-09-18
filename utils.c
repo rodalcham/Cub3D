@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:28:45 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/16 14:28:57 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/18 11:31:12 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,20 @@ void	pcopy(t_point *dst, t_point src)
 	dst->y = src.y;
 	dst->plane = src.plane;
 }
+
+
+int	frame_function(void)
+{
+	static int	i = 0;
+	const int	frame_time = 5;
+
+	i++;
+	if (i == frame_time)
+	{
+		i = 0;
+		return (1);
+	}
+	else
+		return (0);
+}
+
