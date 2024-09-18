@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:02:50 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/18 14:00:23 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/18 16:03:46 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	draw_mini(t_cub	*cub)
 		}
 	}
 	draw_player(cub);
-	flood_fill(cub, cub->p->p, 94702, 94702);
+	// flood_fill(cub, cub->p->p, 94702, 94702);
 }
 
 void	rec_fill(mlx_image_t *img, uint32_t pos[2], uint8_t lim[8], uint32_t col)

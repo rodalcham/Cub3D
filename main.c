@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/18 14:10:29 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:04:14 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int main(void)
 	cub.img[1] = mlx_new_image(cub.win, WIDTH, HEIGHT);
 	if (!cub.img[0])
 		return (0);
-	if (mlx_image_to_window(cub.win, cub.img[0], 0, 0))
-		return (0);
 	if (mlx_image_to_window(cub.win, cub.img[1], 0, 0))
+		return (0);
+	if (mlx_image_to_window(cub.win, cub.img[0], 0, 0))
 		return (0);
 	mlx_loop_hook(cub.win, key_hook, &cub);
 	mlx_loop(cub.win);
