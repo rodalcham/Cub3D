@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:28:45 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/18 11:31:12 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:38:23 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	pcopy(t_point *dst, t_point src)
 int	frame_function(void)
 {
 	static int	i = 0;
-	const int	frame_time = 5;
+	const int	frame_time = 3;
 
 	i++;
 	if (i == frame_time)
