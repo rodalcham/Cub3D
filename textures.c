@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 10:49:34 by mbankhar          #+#    #+#             */
-/*   Updated: 2024/09/18 14:01:09 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/18 15:01:39 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ unsigned int	get_color(mlx_texture_t	*img, t_fixed xy[2], t_fixed wh[2])
 
 void draw_walls(t_crash crash, t_cub cub, int x, t_fixed angle)
 {
-	double	corrected_distance = fixed_to_double(f_mult(crash.distance, f_cos(angle)));
+	double	corrected_distance = fixed_to_double(crash.distance) * cos(fixed_to_double(angle) / 200 * PI);
 	int		wall_height = (int)(HEIGHT / corrected_distance);
 	int		wall_start = HEIGHT / 2 - wall_height / 2;
 	int		wall_end = wall_start + wall_height;
@@ -91,8 +91,13 @@ void draw_walls(t_crash crash, t_cub cub, int x, t_fixed angle)
 		if (y >= wall_start && y < wall_end)
 		{
 			xy[1] = double_to_fixed((y - wall_start) / (double)wall_height);
+			// get_color(image, xy, wh);
+			// mlx_put_pixel(cub.img[1], x, y++, get_color(image, xy, wh));
+			// mlx_put_pixel(cub.img[1], x, y++, get_color(image, xy, wh));
+			// mlx_put_pixel(cub.img[1], x, y++, get_color(image, xy, wh));
 			mlx_put_pixel(cub.img[1], x, y, get_color(image, xy, wh));
 		}
+		// else
 		y++;
 	}
 }
