@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:28:45 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/18 14:38:59 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/19 11:41:16 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,10 @@ void	pcopy(t_point *dst, t_point src)
 	dst->plane = src.plane;
 }
 
-
-// int	frame_function(void)
-// {
-// 	static int	i = 0;
-// 	const int	frame_time = 3;
-
-// 	i++;
-// 	if (i == frame_time)
-// 	{
-// 		i = 0;
-// 		return (1);
-// 	}
-// 	else
-// 		return (0);
-// }
-
-
 int	frame_function(void)
 {
-	static double	previous_time = 0.0;
-	double			current_time;
+	static double		previous_time = 0.0;
+	double				current_time;
 	static const double	frame_time = 1.0 / 30.0;
 
 	current_time = mlx_get_time();
@@ -57,6 +40,5 @@ int	frame_function(void)
 		previous_time = current_time;
 		return (1);
 	}
-
 	return (0);
 }

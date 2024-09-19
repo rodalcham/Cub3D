@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/18 16:30:54 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/19 11:37:58 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 * @param angle The angle that the player is facing
 * @param view An array of all the angles in the player's FOV
 */
-typedef struct	s_player
+typedef struct s_player
 {
 	t_point		p;
 	t_fixed		angle;
@@ -55,7 +55,7 @@ typedef struct	s_player
  * @param FLOOR The texture of the object's bottom side
  * @param CEILING The texture of the object's top side
  */
-typedef struct	s_object
+typedef struct s_object
 {
 	char			*north;
 	char			*south;
@@ -76,7 +76,7 @@ typedef struct	s_object
  * @param P A pointer to the player
  * @param WALL A pointer to the object representing our walls
  */
-typedef struct	s_cub
+typedef struct s_cub
 {
 	mlx_t		*win;
 	mlx_image_t	*img[3];
@@ -91,7 +91,7 @@ typedef struct	s_cub
  * @param DISTANCE How far away is the object from origin
  * @param DIR A char, indicating from which direction the collision occured
  */
-typedef	struct crash_s
+typedef struct crash_s
 {
 	void		*obj;
 	t_point		p;
@@ -99,27 +99,30 @@ typedef	struct crash_s
 	char		dir;
 }				t_crash;
 
-
 // Map functions
 int		obj_init(t_object *obj, t_cub *cub, char *path);
 int		extract_grid(t_cub *map, int fd);
 int		ft_strcmp(char *s1, char *s2);
 void	free_chars(char **chars);
 void	destroy_obj(t_object obj);
+void	draw_mini(t_cub	*cub);
+void	draw_walls(t_crash crash, t_cub cub, int i, t_fixed angle);
+void	load_textures(t_object *object);
 
 // Raycaster
-void	draw_mini(t_cub	*cub);
+t_crash	cast_ray(t_ray ray);
+t_fixed	normalize(t_fixed angle);
 
 // Player Functions
 void	init_player(t_cub *cub, int x, int y, char d);
+int		player_access(t_fixed x, t_fixed y, t_plane *plane);
 void	key_hook(void *cub);
+int		frame_function(void);
 
-t_fixed	normalize(t_fixed angle);
 void	flood_fill(t_cub *cub, t_point p, uint32_t limit, uint32_t fill);
 void	pcopy(t_point *dst, t_point src);
-t_crash	cast_ray(t_ray ray);
-void	draw_walls(t_crash crash, t_cub cub, int i, t_fixed angle);
-void	load_textures(t_object *object);
-int		frame_function(void);
+int		is_spc(int c);
+int		line_fill(char *line, t_object *obj);
+int		validate_textures(t_object *obj);
 
 #endif

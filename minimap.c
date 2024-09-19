@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:02:50 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/18 16:03:46 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/19 11:25:01 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	draw_player(t_cub *cub)
 {
 	t_point	p[4];
 	t_crash	x;
+	int		i;
 
 	p[0] = from_h((t_ray){&cub->p->p, cub->p->angle}, double_to_fixed(0.5));
 	p[1] = from_h((t_ray){&cub->p->p, normalize(cub->p->angle
@@ -94,9 +95,8 @@ void	draw_player(t_cub *cub)
 	draw_line(cub, p[0], p[3]);
 	draw_line(cub, p[1], p[2]);
 	draw_line(cub, p[1], p[3]);
-
-
-	for (int i = 0; i < RAY_NBR; i++)
+	i = -1;
+	while (++i < RAY_NBR)
 	{
 		x = cast_ray(cub->p->view[i]);
 		draw_line(cub, cub->p->p, x.p);
@@ -122,42 +122,4 @@ void	draw_mini(t_cub	*cub)
 		}
 	}
 	draw_player(cub);
-	// flood_fill(cub, cub->p->p, 94702, 94702);
-}
-
-void	rec_fill(mlx_image_t *img, uint32_t pos[2], uint8_t lim[8], uint32_t col)
-{
-	uint8_t* pixel;
-
-
-	if (img && pos[0] < img->width && pos[1] < img->height && pos[0] >=0 && pos[1] >= 0 && col)
-	{
-		pixel = &img->pixels[(pos[1] * img->width + pos[0]) * sizeof(int32_t)];
-		if ((pixel[0] != lim[0] || pixel[1] != lim[1] || pixel[2] != lim[2] || pixel[3] != lim[3]) && (pixel[0] != lim[4] || pixel[1] != lim[5] || pixel[2] != lim[6] || pixel[3] != lim[7]))
-		{
-			mlx_put_pixel(img, pos[0], pos[1], col);
-			rec_fill(img, (uint32_t[2]){pos[0] + 1, pos[1]}, lim, col);
-			rec_fill(img, (uint32_t[2]){pos[0] - 1, pos[1]}, lim, col);
-			rec_fill(img, (uint32_t[2]){pos[0], pos[1] - 1}, lim, col);
-			rec_fill(img, (uint32_t[2]){pos[0], pos[1] + 1}, lim, col);
-		}
-	}
-}
-
-void	flood_fill(t_cub *cub, t_point p, uint32_t limit, uint32_t fill)
-{
-	uint32_t	pos[2];
-	uint8_t	lim[8];
-	
-	pos[0] = (fixed_to_float(p.x) / p.plane->width) * cub->img[0]->width;
-	pos[1] = (fixed_to_float(p.y) / p.plane->heigth) * cub->img[0]->height;
-	lim[0] = (uint8_t)(limit >> 24);
-	lim[1] = (uint8_t)(limit >> 16);
-	lim[2] = (uint8_t)(limit >> 8);
-	lim[3] = (uint8_t)(limit & 0xFF);
-	lim[4] = (uint8_t)(fill >> 24);
-	lim[5] = (uint8_t)(fill >> 16);
-	lim[6] = (uint8_t)(fill >> 8);
-	lim[7] = (uint8_t)(fill & 0xFF);
-	rec_fill(cub->img[0], pos, lim, fill);
 }

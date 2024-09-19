@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 10:49:34 by mbankhar          #+#    #+#             */
-/*   Updated: 2024/09/18 15:32:23 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/19 12:18:22 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ void	load_textures(t_object *object)
 unsigned int	get_color(mlx_texture_t	*img, t_fixed xy[2], t_fixed wh[2])
 {
 	t_fixed	pos;
-	int	ret;
+	int		ret;
 	uint8_t	*temp;
 	int		i;
 
-	pos = (f_mult((f_mult(xy[1] ,wh[1]) >> 16 << 16), wh[0])) + (f_mult(xy[0], wh[0]));
+	pos = (f_mult((f_mult(xy[1], wh[1]) >> 16 << 16), wh[0]))
+		+ (f_mult(xy[0], wh[0]));
 	temp = &img->pixels[pos >> 16 << 2];
 	ret = 0;
 	i = -1;
@@ -50,55 +51,49 @@ unsigned int	get_color(mlx_texture_t	*img, t_fixed xy[2], t_fixed wh[2])
 	return (ret);
 }
 
-void draw_walls(t_crash crash, t_cub cub, int x, t_fixed angle)
+mlx_texture_t	*start_img(t_crash c, t_cub cub, t_fixed wh[2], t_fixed xy[2])
 {
-	double	corrected_distance = fixed_to_double(crash.distance) * cos(fixed_to_double(angle) / 200 * PI);
-	int		wall_height = (int)(HEIGHT / corrected_distance);
-	int		wall_start = HEIGHT / 2 - wall_height / 2;
-	int		wall_end = wall_start + wall_height;
-	int		y;
 	mlx_texture_t	*image;
 
-	y = 0;
-	if (crash.dir == 'N')
+	if (c.dir == 'N')
 		image = cub.wall->north_texture;
-	else if (crash.dir == 'S')
+	else if (c.dir == 'S')
 		image = cub.wall->south_texture;
-	else if (crash.dir == 'E')
+	else if (c.dir == 'E')
 		image = cub.wall->east_texture;
 	else
 		image = cub.wall->west_texture;
-	if (corrected_distance <= 0)
-		corrected_distance = 1;
-
-
-	t_fixed	wh[2];
-	t_fixed	xy[2];
-	
-
 	wh[0] = image->width << 16;
 	wh[1] = image->height << 16;
+	if (c.dir == 'N' || c.dir == 'S')
+		xy[0] = (c.p.x - (c.p.x >> 16 << 16));
+	else if (c.dir == 'E' || c.dir == 'W')
+		xy[0] = (c.p.y - (c.p.y >> 16 << 16));
+	return (image);
+}
 
-	if (crash.dir == 'N' || crash.dir == 'S')
-		xy[0] = (crash.p.x - (crash.p.x >> 16 << 16));
-	if (crash.dir == 'E' || crash.dir == 'W')
-		xy[0] = (crash.p.y - (crash.p.y >> 16 << 16));
-	
+void	draw_walls(t_crash crash, t_cub cub, int x, t_fixed angle)
+{
+	int				wall[3];
+	int				y;
+	mlx_texture_t	*image;
+	t_fixed			wh[2];
+	t_fixed			xy[2];
 
+	wall[0] = (int)(HEIGHT / (fixed_to_double(crash.distance)
+				* cos(fixed_to_double(angle) / 200 * PI)));
+	wall[1] = HEIGHT / 2 - wall[0] / 2;
+	wall[2] = wall[0] + wall[1];
+	image = start_img(crash, cub, wh, xy);
+	y = 0;
 	while (y < HEIGHT)
 	{
 		mlx_put_pixel(cub.img[1], x, y, 0);
-		if (y >= wall_start && y < wall_end)
+		if (y >= wall[1] && y < wall[2])
 		{
-			xy[1] = double_to_fixed((y - wall_start) / (double)wall_height);
-			// get_color(image, xy, wh, cub.img[1]);
-			// mlx_put_pixel(cub.img[1], x, y++, get_color(image, xy, wh));
-			// mlx_put_pixel(cub.img[1], x, y++, get_color(image, xy, wh));
-			// mlx_put_pixel(cub.img[1], x, y++, get_color(image, xy, wh));
+			xy[1] = double_to_fixed((y - wall[1]) / (double)wall[0]);
 			mlx_put_pixel(cub.img[1], x, y, get_color(image, xy, wh));
 		}
-		// else
 		y++;
 	}
 }
-

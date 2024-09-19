@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:36:37 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/18 09:00:30 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/19 11:36:34 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 t_point	calc_coll(t_ray ray, int sign[2], char mode);
 
-t_crash rec_ray(t_ray ray, t_point point, t_fixed delta[2], char dir)
+t_crash	rec_ray(t_ray ray, t_point point, t_fixed delta[2], char dir)
 {
-	t_crash ret;
+	t_crash	ret;
 
-	while (point.x > 0 && point.x < int_to_fixed(ray.src->plane->width) && point.y > 0 && point.y < int_to_fixed(ray.src->plane->heigth))
+	while (point.x > 0 && point.x < int_to_fixed(ray.src->plane->width)
+		&& point.y > 0 && point.y < int_to_fixed(ray.src->plane->heigth))
 	{
 		if (paccess(point))
 		{
@@ -38,7 +39,7 @@ t_crash rec_ray(t_ray ray, t_point point, t_fixed delta[2], char dir)
 	return (ret);
 }
 
-t_crash	castray_X(int xsign, t_ray ray, t_point point)
+t_crash	castray_x(int xsign, t_ray ray, t_point point)
 {
 	t_fixed	delta[2];
 
@@ -49,14 +50,14 @@ t_crash	castray_X(int xsign, t_ray ray, t_point point)
 	return (rec_ray(ray, point, delta, 'E'));
 }
 
-t_crash	castray_Y(int ysign, t_ray ray, t_point point)
+t_crash	castray_y(int ysign, t_ray ray, t_point point)
 {
 	t_fixed	delta[2];
 
 	delta[1] = int_to_fixed(ysign);
 	if (f_tan(ray.angle) < int_to_fixed(1000))
 		delta[0] = f_div(delta[1], f_tan(ray.angle));
-	else 
+	else
 		delta[0] = 0;
 	if (ysign > 0)
 		return (rec_ray(ray, point, delta, 'S'));
@@ -65,23 +66,23 @@ t_crash	castray_Y(int ysign, t_ray ray, t_point point)
 
 t_crash	cast_ray(t_ray ray)
 {
-	t_crash crash[2];
+	t_crash	crash[2];
 	int		sign[2];
 
 	sign[0] = 0;
 	sign[1] = 0;
 	if (ray.angle > int_to_fixed(1) && ray.angle < int_to_fixed(199))
 		sign[1] = 1;
-	else if (ray.angle > (int_to_fixed(201)) &&  ray.angle < int_to_fixed(399))
+	else if (ray.angle > (int_to_fixed(201)) && ray.angle < int_to_fixed(399))
 		sign[1] = -1;
 	if (ray.angle < int_to_fixed(99) || ray.angle > int_to_fixed(301))
 		sign[0] = 1;
 	else if (ray.angle > int_to_fixed(101) && ray.angle < int_to_fixed(299))
 		sign[0] = -1;
 	if (sign[0])
-		crash[0] = castray_X(sign[0], ray, calc_coll(ray, sign, 'x'));
+		crash[0] = castray_x(sign[0], ray, calc_coll(ray, sign, 'x'));
 	if (sign[1])
-		crash[1] = castray_Y(sign[1], ray, calc_coll(ray, sign, 'y'));
+		crash[1] = castray_y(sign[1], ray, calc_coll(ray, sign, 'y'));
 	if (!sign[0])
 		return (crash[1]);
 	if (!sign[1])
@@ -93,14 +94,13 @@ t_crash	cast_ray(t_ray ray)
 
 t_point	calc_coll(t_ray ray, int sign[2], char mode)
 {
-	t_point ret;
-	t_fixed temp;
+	t_point	ret;
+	t_fixed	temp;
 
 	ret.plane = ray.src->plane;
 	if (mode == 'x')
 	{
-		ret.x = ray.src->x >> 16;
-		ret.x = ret.x << 16;
+		ret.x = (ray.src->x >> 16) << 16;
 		if (sign[0] == 1)
 			ret.x += int_to_fixed(1) + 5;
 		temp = ret.x - ray.src->x;
@@ -108,8 +108,7 @@ t_point	calc_coll(t_ray ray, int sign[2], char mode)
 	}
 	else
 	{
-		ret.y = ray.src->y >> 16;
-		ret.y = ret.y << 16;
+		ret.y = (ray.src->y >> 16) << 16;
 		if (sign[1] == 1)
 			ret.y += int_to_fixed(1) + 5;
 		temp = ret.y - ray.src->y;

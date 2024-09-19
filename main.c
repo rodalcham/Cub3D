@@ -6,13 +6,13 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/18 16:51:01 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/19 11:20:50 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(void)
+int	main(void)
 {
 	t_cub		cub;
 	t_player	p;
@@ -25,16 +25,7 @@ int main(void)
 		write(2, "Invalid map\n", 12);
 		return (1);
 	}
-	p.p.x = 519085;
-	p.p.y = 882240;
-	p.angle = 15597568;
-	t_fixed delta = f_div(int_to_fixed(FOV), int_to_fixed(RAY_NBR));
-	for (int i = 0; i < RAY_NBR; i++)
-	{
-		p.view[i].angle = normalize(p.angle + f_mult(delta, int_to_fixed(i - RAY_NBR / 2)));
-		p.view[i].src = &p.p;
-	}
-	cub.win = mlx_init(WIDTH, HEIGHT , "Cub3D", 1);
+	cub.win = mlx_init(WIDTH, HEIGHT, "Cub3D", 1);
 	if (!cub.win)
 	{
 		write(2, "MLX error\n", 10);

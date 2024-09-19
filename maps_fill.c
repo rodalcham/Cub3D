@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:13:14 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/12 09:58:33 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/19 11:22:30 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_strcmp(char *s1, char *s2)
 
 	if (!s1 && !s2)
 		return (0);
-	if	(!s1 || !s2)
+	if (!s1 || !s2)
 		return (1);
 	i = 0;
 	while (s1[i] && s2[i] && s1[i] == s2[i])
@@ -95,7 +95,7 @@ char	**extract_chars(int fd)
 	return (ret);
 }
 
-int		extract_grid(t_cub *map, int fd)
+int	extract_grid(t_cub *map, int fd)
 {
 	char	**str;
 	int		x;

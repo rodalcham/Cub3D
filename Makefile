@@ -6,7 +6,7 @@
 #    By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/23 11:29:41 by rchavez@stu       #+#    #+#              #
-#    Updated: 2024/09/18 16:23:25 by rchavez          ###   ########.fr        #
+#    Updated: 2024/09/19 11:16:53 by rchavez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ PLANE = $(PLANE_F)/plane.a
 LIBFT = $(LIBFT_F)/libft.a
 
 CFILES = main.c maps.c maps_fill.c player.c rays.c hook.c minimap.c utils.c\
-	textures.c
+	textures.c object.c
 
 OFILES = $(CFILES:%.c=$(O_F)/%.o)
 
