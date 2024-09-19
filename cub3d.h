@@ -6,7 +6,7 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/19 11:37:58 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/19 12:38:18 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,11 @@ typedef struct crash_s
 int		obj_init(t_object *obj, t_cub *cub, char *path);
 int		extract_grid(t_cub *map, int fd);
 int		ft_strcmp(char *s1, char *s2);
+int		load_textures(t_object *object);
 void	free_chars(char **chars);
 void	destroy_obj(t_object obj);
 void	draw_mini(t_cub	*cub);
 void	draw_walls(t_crash crash, t_cub cub, int i, t_fixed angle);
-void	load_textures(t_object *object);
 
 // Raycaster
 t_crash	cast_ray(t_ray ray);
@@ -115,8 +115,8 @@ t_fixed	normalize(t_fixed angle);
 
 // Player Functions
 void	init_player(t_cub *cub, int x, int y, char d);
-int		player_access(t_fixed x, t_fixed y, t_plane *plane);
 void	key_hook(void *cub);
+int		player_access(t_fixed x, t_fixed y, t_plane *plane);
 int		frame_function(void);
 
 void	flood_fill(t_cub *cub, t_point p, uint32_t limit, uint32_t fill);

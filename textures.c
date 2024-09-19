@@ -6,26 +6,39 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 10:49:34 by mbankhar          #+#    #+#             */
-/*   Updated: 2024/09/19 12:18:22 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/19 12:37:47 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	load_textures(t_object *object)
+int	load_textures(t_object *object)
 {
 	object->east_texture = mlx_load_png(object->east);
 	if (!object->east_texture)
-		write (1, "Error loading east texture", 27);
+	{
+		write (2, "Error loading east texture\n", 28);
+		return (1);
+	}
 	object->west_texture = mlx_load_png(object->west);
-	if (!object->east_texture)
-		write (1, "Error loading east texture", 27);
+	if (!object->west_texture)
+	{
+		write (2, "Error loading west texture\n", 28);
+		return (1);
+	}
 	object->north_texture = mlx_load_png(object->north);
-	if (!object->east_texture)
-		write (1, "Error loading east texture", 27);
+	if (!object->north_texture)
+	{
+		write (2, "Error loading north texture\n", 29);
+		return (1);
+	}
 	object->south_texture = mlx_load_png(object->south);
-	if (!object->east_texture)
-		write (1, "Error loading east texture", 27);
+	if (!object->south_texture)
+	{
+		write (2, "Error loading south texture\n", 29);
+		return (1);
+	}
+	return (0);
 }
 
 unsigned int	get_color(mlx_texture_t	*img, t_fixed xy[2], t_fixed wh[2])
