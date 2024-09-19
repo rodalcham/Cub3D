@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/19 12:38:18 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/19 17:24:33 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,14 @@ void	key_hook(void *cub);
 int		player_access(t_fixed x, t_fixed y, t_plane *plane);
 int		frame_function(void);
 
-void	flood_fill(t_cub *cub, t_point p, uint32_t limit, uint32_t fill);
+// void	flood_fill(t_cub *cub, t_point p, uint32_t limit, uint32_t fill);
 void	pcopy(t_point *dst, t_point src);
 int		is_spc(int c);
 int		line_fill(char *line, t_object *obj);
 int		validate_textures(t_object *obj);
+int		player_check(char **map);
+int		copy_map(char **map, t_player player);
+int		flood_fill2(char **map, t_player player, int rows, int cols);
+
 
 #endif

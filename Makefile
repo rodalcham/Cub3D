@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/23 11:29:41 by rchavez@stu       #+#    #+#              #
-#    Updated: 2024/09/19 11:16:53 by rchavez          ###   ########.fr        #
+#    Updated: 2024/09/19 17:20:28 by mbankhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ PLANE = $(PLANE_F)/plane.a
 LIBFT = $(LIBFT_F)/libft.a
 
 CFILES = main.c maps.c maps_fill.c player.c rays.c hook.c minimap.c utils.c\
-	textures.c object.c
+	textures.c object.c map_checks.c
 
 OFILES = $(CFILES:%.c=$(O_F)/%.o)
 
