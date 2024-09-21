@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/19 17:48:41 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:23:53 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(void)
 		write(2, "Invalid map\n", 12);
 		return (1);
 	}
-	printf("%d\n", player_check((char **)cub.map->grid));
+	// printf("%d\n", player_check((char **)cub.map->grid));
 	// printf("%d\n", copy_map((char **)cub.map->grid, p));
 	cub.win = mlx_init(WIDTH, HEIGHT, "Cub3D", 1);
 	if (!cub.win)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:28:45 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/19 11:41:16 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/21 18:15:23 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	pcopy(t_point *dst, t_point src)
 
 int	frame_function(void)
 {
-	static double		previous_time = 0.0;
 	double				current_time;
+	static double		previous_time = 0.0;
 	static const double	frame_time = 1.0 / 30.0;
 
 	current_time = mlx_get_time();
@@ -41,4 +41,12 @@ int	frame_function(void)
 		return (1);
 	}
 	return (0);
+}
+
+void	err(char *str)
+{
+	if (!str)
+		return ;
+	while (*str)
+		write(2, str++, 1);
 }

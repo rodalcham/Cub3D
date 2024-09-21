@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:10:45 by mbankhar          #+#    #+#             */
-/*   Updated: 2024/09/19 17:52:02 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:23:05 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	player_check(char **map)
 	int	i = -1;
 	while (map[++i])
 	{
-		printf("%s\n", map[i]);
+		// printf("%s\n", map[i]);
 	}
 	while (map[++x])
 	{
@@ -37,7 +37,7 @@ int	player_check(char **map)
 	}
 	if (player_count != 1)
 	{
-		printf("%d\n", player_count);
+		// printf("%d\n", player_count);
 		return (-1);
 	}
 	return (1);

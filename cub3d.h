@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/19 17:24:33 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/21 17:35:21 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@
 #  define DEBUG 0
 # endif
 
-# define HEIGHT 1200
-# define WIDTH 2400
+# define HEIGHT 800
+# define WIDTH 1200
 # define FOV 70
-# define RAY_NBR 2400
+# define RAY_NBR 1200
 # define TURN 2
 # define STEP 0.05
+# define MINICOLOR 424242
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -128,5 +129,7 @@ int		player_check(char **map);
 int		copy_map(char **map, t_player player);
 int		flood_fill2(char **map, t_player player, int rows, int cols);
 
+void	minimap(t_cub	*cub);
+void	static_map(t_cub	*cub);
 
 #endif
