@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps_fill.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:13:14 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/19 11:22:30 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/09/22 16:17:41 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ int	extract_grid(t_cub *map, int fd)
 	int		y;
 
 	str = extract_chars(fd);
-	if (!str)
-		return (-1);
+	if (!str || player_check(str) < 0)
+		exit(-1);
 	map->map = build_plane(str, 0, 0);
 	if (!map->map)
 		return (free_chars(str), -1);
@@ -117,7 +117,11 @@ int	extract_grid(t_cub *map, int fd)
 				map->map->grid[y][x] = map->wall;
 			else if (str[x][y] == 'N' || str[x][y] == 'E'
 				|| str[x][y] == 'E' || str[x][y] == 'W')
+			{
 				init_player(map, x, y, str[x][y]);
+				 if (copy_map(str, x, y) < 1)
+				 	exit(-1);
+			}
 		}
 	}
 	return (0);

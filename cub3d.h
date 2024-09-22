@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/21 17:35:21 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/22 15:52:43 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ int		is_spc(int c);
 int		line_fill(char *line, t_object *obj);
 int		validate_textures(t_object *obj);
 int		player_check(char **map);
-int		copy_map(char **map, t_player player);
-int		flood_fill2(char **map, t_player player, int rows, int cols);
+int		copy_map(char **map, int x, int y);
+int		flood_fill2(char **map, int g, int y, int rows, int cols);
 
 void	minimap(t_cub	*cub);
 void	static_map(t_cub	*cub);
