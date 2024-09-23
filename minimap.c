@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:02:50 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/23 11:43:34 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/23 11:53:37 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	draw_pixels(t_cub *cub, int x[2], int y[2], int delta[2])
 	err[0] = delta[0] - delta[1];
 	while (x[0] != x[1] || y[0] != y[1])
 	{
-		mlx_put_pixel(cub->img[0], x[0], y[0], 94702);
+		mlx_put_pixel(cub->img[0], x[0], y[0], LINECOL);
 		err[1] = err[0] * 2;
 		if (err[1] > -1 * delta[1])
 		{

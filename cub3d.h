@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/23 11:47:13 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/23 11:55:40 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@
 # define RAY_NBR 1200
 # define TURN 2
 # define STEP 0.05
-# define MINICOLOR 42424242
+
+# define MINICOLOR 0xFFFF00
 # define MINIBACK 0x0000FF
+# define LINECOL 94702
 
 # include <unistd.h>
 # include <stdlib.h>
