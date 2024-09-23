@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/22 14:57:16 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:44:45 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,16 @@ int	main(void)
 	mlx_set_window_title(cub.win, "Cub3D");
 	cub.img[0] = mlx_new_image(cub.win, HEIGHT / 4, HEIGHT / 4);
 	cub.img[1] = mlx_new_image(cub.win, WIDTH, HEIGHT);
+	cub.img[2] = mlx_new_image(cub.win, WIDTH, HEIGHT);
 	if (!cub.img[0])
+		return (0);
+	if (mlx_image_to_window(cub.win, cub.img[2], 0, 0))
 		return (0);
 	if (mlx_image_to_window(cub.win, cub.img[1], 0, 0))
 		return (0);
 	if (mlx_image_to_window(cub.win, cub.img[0], 0, 0))
 		return (0);
+	draw_background(&cub, 42424, 4265367);
 	mlx_loop_hook(cub.win, key_hook, &cub);
 	mlx_loop(cub.win);
 	mlx_terminate(cub.win);

@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:02:50 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/21 17:49:48 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/23 11:43:34 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,23 @@ void	draw_mini(t_cub	*cub)
 		minimap(cub);
 	}
 	draw_player(cub, map);
+}
+
+void	draw_background(t_cub *cub, uint32_t cei, uint32_t flo)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < WIDTH)
+	{
+		j = -1;
+		while (++j < HEIGHT)
+		{
+			if (j < (HEIGHT / 2))
+				mlx_put_pixel(cub->img[2], i, j, cei);
+			else
+				mlx_put_pixel(cub->img[2], i, j, flo);
+		}
+	}
 }

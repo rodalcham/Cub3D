@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/22 15:52:43 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:47:13 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # define RAY_NBR 1200
 # define TURN 2
 # define STEP 0.05
-# define MINICOLOR 424242
+# define MINICOLOR 42424242
+# define MINIBACK 0x0000FF
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -131,5 +132,6 @@ int		flood_fill2(char **map, int g, int y, int rows, int cols);
 
 void	minimap(t_cub	*cub);
 void	static_map(t_cub	*cub);
+void	draw_background(t_cub *cub, uint32_t cei, uint32_t flo);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:28:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/21 17:34:48 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/23 11:39:28 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ void	minimap(t_cub	*cub)
 		{
 			p.x = relative_x(i, cub);
 			if (paccess(p))
-				mlx_put_pixel(cub->img[0], i, j, 42424242);
+				mlx_put_pixel(cub->img[0], i, j, MINICOLOR);
 			else
-				mlx_put_pixel(cub->img[0], i, j, 0);
+				mlx_put_pixel(cub->img[0], i, j, MINIBACK);
 			i++;
 		}
 		j++;
@@ -99,9 +99,9 @@ void	static_map(t_cub	*cub)
 		{
 			p.x = abs_x(i, cub);
 			if (paccess(p))
-				mlx_put_pixel(cub->img[0], i, j, 42424242);
+				mlx_put_pixel(cub->img[0], i, j, MINICOLOR);
 			else
-				mlx_put_pixel(cub->img[0], i, j, 0);
+				mlx_put_pixel(cub->img[0], i, j, MINIBACK);
 			i++;
 		}
 		j++;
