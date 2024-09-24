@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:10:45 by mbankhar          #+#    #+#             */
-/*   Updated: 2024/09/22 16:34:43 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/09/24 11:00:33 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ int	copy_map(char **map, int g, int y)
 	{
 		i = -1;
 		while (map_cpy[++i])
-			free(map_cpy[i]);
-		free(map_cpy);
+			free_t(map_cpy[i]);
+		free_t(map_cpy);
 		return (1);
 	}
 	i = -1;
 	while (map_cpy[++i])
-		free(map_cpy[i]);
-	free(map_cpy);
+		free_t(map_cpy[i]);
+	free_t(map_cpy);
 	return (-1);
 }
 

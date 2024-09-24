@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/23 11:55:40 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/24 11:15:02 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,6 @@ int		flood_fill2(char **map, int g, int y, int rows, int cols);
 void	minimap(t_cub	*cub);
 void	static_map(t_cub	*cub);
 void	draw_background(t_cub *cub, uint32_t cei, uint32_t flo);
+void	err(char *str);
 
 #endif
