@@ -6,7 +6,7 @@
 /*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/24 11:30:52 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/09/24 11:55:04 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	init_mlx(t_cub *cub)
 		mlx_exit(cub);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_cub		cub;
 	t_object	obj;
@@ -83,7 +83,9 @@ int	main(void)
 	cub.img[1] = NULL;
 	cub.img[2] = NULL;
 	cub.map = NULL;
-	if (obj_init(&obj, &cub, "map.cub") < 0)
+	if (argc != 2)
+		return (err("Incorrect number of arguments.\n"), 1);
+	if (obj_init(&obj, &cub, argv[1]) < 0)
 		return (err("Invalid Map.\n"), destroy_plane(cub.map), link_free(), 1);
 	init_mlx(&cub);
 	draw_background(&cub, 42424, 4265367);
