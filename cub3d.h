@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/24 11:15:02 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/10/03 16:25:49 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ typedef struct s_object
 	mlx_texture_t	*south_texture;
 	mlx_texture_t	*east_texture;
 	mlx_texture_t	*west_texture;
+	mlx_texture_t	*gun_texture;
+	mlx_image_t		*gun_image;
 }				t_object;
 /** Our Cub3D Struct
  * @param WIN A pointer to the window
@@ -112,6 +114,8 @@ void	free_chars(char **chars);
 void	destroy_obj(t_object obj);
 void	draw_mini(t_cub	*cub);
 void	draw_walls(t_crash crash, t_cub cub, int i, t_fixed angle);
+int		load_gun(t_object *object);
+void	draw_gun(t_object *object, t_cub *cub);
 
 // Raycaster
 t_crash	cast_ray(t_ray ray);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/24 11:55:04 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/10/03 17:13:53 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,18 @@ void	init_mlx(t_cub *cub)
 		mlx_exit(cub);
 }
 
+void	check_leaks(void)
+{
+	system("leaks Cub3d");
+}
+
 int	main(int argc, char **argv)
 {
 	t_cub		cub;
 	t_object	obj;
 	t_player	p;
 
+	atexit(check_leaks);
 	cub.wall = &obj;
 	cub.p = &p;
 	cub.win = NULL;
@@ -89,6 +95,7 @@ int	main(int argc, char **argv)
 		return (err("Invalid Map.\n"), destroy_plane(cub.map), link_free(), 1);
 	init_mlx(&cub);
 	draw_background(&cub, 42424, 4265367);
+	load_gun(&obj);
 	mlx_loop_hook(cub.win, key_hook, &cub);
 	mlx_loop(cub.win);
 	destroy_cub(&cub);
