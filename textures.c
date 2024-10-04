@@ -6,29 +6,11 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 10:49:34 by mbankhar          #+#    #+#             */
-/*   Updated: 2024/10/03 17:10:37 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:52:53 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	load_gun(t_object *object)
-{
-	object->gun_texture = mlx_load_png("textures/gun1.png");
-	if (!object->gun_texture)
-	{
-		write (2, "Error loading gun\n", 28);
-		return (1);
-	}
-	object->gun_image = mlx_texture_to_image(object->mlxpointer,
-			object->gun_texture);
-	if (!object->gun_image)
-	{
-		write(1, "Error converting gun tex to img", 32);
-		return (1);
-	}
-	return (0);
-}
 
 int	load_textures(t_object *object)
 {

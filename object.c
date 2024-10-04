@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 11:16:26 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/24 10:47:58 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/10/04 10:02:54 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	obj_init(t_object *obj, t_cub *cub, char *path)
 	obj->south_texture = NULL;
 	obj->east_texture = NULL;
 	obj->west_texture = NULL;
+	obj->gun_texture = NULL;
+	obj->gun_image = NULL;
 	if (ft_strlen(path) < 5 || ft_strcmp(&path[ft_strlen(path) - 4], ".cub"))
 		return (-1);
 	fd = open(path, O_RDONLY);

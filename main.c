@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/10/03 17:13:53 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:57:17 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	check_leaks(void)
 	system("leaks Cub3d");
 }
 
+
 int	main(int argc, char **argv)
 {
 	t_cub		cub;
@@ -95,8 +96,10 @@ int	main(int argc, char **argv)
 		return (err("Invalid Map.\n"), destroy_plane(cub.map), link_free(), 1);
 	init_mlx(&cub);
 	draw_background(&cub, 42424, 4265367);
-	load_gun(&obj);
+	load_gun(&obj, &cub);
+	draw_gun(&obj, &cub);
 	mlx_loop_hook(cub.win, key_hook, &cub);
 	mlx_loop(cub.win);
+	free_gun(obj, cub);
 	destroy_cub(&cub);
 }

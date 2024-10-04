@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/10/03 16:25:49 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:56:31 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,9 @@ void	free_chars(char **chars);
 void	destroy_obj(t_object obj);
 void	draw_mini(t_cub	*cub);
 void	draw_walls(t_crash crash, t_cub cub, int i, t_fixed angle);
-int		load_gun(t_object *object);
+int		load_gun(t_object *object, t_cub *cub);
 void	draw_gun(t_object *object, t_cub *cub);
+void	free_gun(t_object obj, t_cub cub);
 
 // Raycaster
 t_crash	cast_ray(t_ray ray);
