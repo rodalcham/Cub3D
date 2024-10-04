@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/10/04 14:56:31 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:02:41 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct crash_s
 // Map functions
 int		obj_init(t_object *obj, t_cub *cub, char *path);
 int		extract_grid(t_cub *map, int fd);
+int		extract_grid2(t_cub *map, char **str);
 int		ft_strcmp(char *s1, char *s2);
 int		load_textures(t_object *object);
 void	free_chars(char **chars);
@@ -117,6 +118,7 @@ void	draw_walls(t_crash crash, t_cub cub, int i, t_fixed angle);
 int		load_gun(t_object *object, t_cub *cub);
 void	draw_gun(t_object *object, t_cub *cub);
 void	free_gun(t_object obj, t_cub cub);
+t_fixed	relative_x(u_int32_t x, t_cub *cub);
 
 // Raycaster
 t_crash	cast_ray(t_ray ray);
@@ -135,8 +137,7 @@ int		line_fill(char *line, t_object *obj);
 int		validate_textures(t_object *obj);
 int		player_check(char **map);
 int		copy_map(char **map, int x, int y);
-int		flood_fill2(char **map, int g, int y, int rows, int cols);
-
+int		flood_fill2(char **map, int x, int y);
 void	minimap(t_cub	*cub);
 void	static_map(t_cub	*cub);
 void	draw_background(t_cub *cub, uint32_t cei, uint32_t flo);

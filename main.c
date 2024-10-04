@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/10/04 14:57:17 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:23:38 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	check_leaks(void)
 {
 	system("leaks Cub3d");
 }
-
 
 int	main(int argc, char **argv)
 {

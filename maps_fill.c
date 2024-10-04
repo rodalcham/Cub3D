@@ -6,25 +6,11 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:13:14 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/22 16:17:41 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:57:22 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	size_t	i;
-
-	if (!s1 && !s2)
-		return (0);
-	if (!s1 || !s2)
-		return (1);
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
-}
 
 void	free_chars(char **chars)
 {
@@ -95,11 +81,41 @@ char	**extract_chars(int fd)
 	return (ret);
 }
 
+// int	extract_grid(t_cub *map, int fd)
+// {
+// 	char	**str;
+// 	int		x;
+// 	int		y;
+
+// 	str = extract_chars(fd);
+// 	if (!str || player_check(str) < 0)
+// 		exit(-1);
+// 	map->map = build_plane(str, 0, 0);
+// 	if (!map->map)
+// 		return (free_chars(str), -1);
+// 	x = -1;
+// 	while (++x < map->map->heigth)
+// 	{
+// 		y = -1;
+// 		while (++y < map->map->width && y < (int)ft_strlen(str[x]))
+// 		{
+// 			if (str[x][y] == '1')
+// 				map->map->grid[y][x] = map->wall;
+// 			else if (str[x][y] == 'N' || str[x][y] == 'E'
+// 				|| str[x][y] == 'E' || str[x][y] == 'W')
+// 			{
+// 				init_player(map, x, y, str[x][y]);
+// 				if (copy_map(str, x, y) < 1)
+// 					exit(-1);
+// 			}
+// 		}
+// 	}
+// 	return (0);
+// }
+
 int	extract_grid(t_cub *map, int fd)
 {
 	char	**str;
-	int		x;
-	int		y;
 
 	str = extract_chars(fd);
 	if (!str || player_check(str) < 0)
@@ -107,6 +123,19 @@ int	extract_grid(t_cub *map, int fd)
 	map->map = build_plane(str, 0, 0);
 	if (!map->map)
 		return (free_chars(str), -1);
+	if (extract_grid2(map, str) < 0)
+	{
+		free_chars(str);
+		return (-1);
+	}
+	return (0);
+}
+
+int	extract_grid2(t_cub *map, char **str)
+{
+	int	x;
+	int	y;
+
 	x = -1;
 	while (++x < map->map->heigth)
 	{
@@ -116,11 +145,11 @@ int	extract_grid(t_cub *map, int fd)
 			if (str[x][y] == '1')
 				map->map->grid[y][x] = map->wall;
 			else if (str[x][y] == 'N' || str[x][y] == 'E'
-				|| str[x][y] == 'E' || str[x][y] == 'W')
+					|| str[x][y] == 'S' || str[x][y] == 'W')
 			{
 				init_player(map, x, y, str[x][y]);
-				 if (copy_map(str, x, y) < 1)
-				 	exit(-1);
+				if (copy_map(str, x, y) < 1)
+					exit(-1);
 			}
 		}
 	}

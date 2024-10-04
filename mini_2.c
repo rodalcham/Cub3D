@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:28:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/23 11:39:28 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/10/04 15:41:06 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-t_fixed	relative_x(u_int32_t x, t_cub *cub)
-{
-	t_fixed	ret;
-	double	temp;
-
-	temp = x;
-	temp = temp * cub->map->width / (cub->img[0]->width * 2);
-	ret = double_to_fixed(temp);
-	ret += cub->p->p.x / 2;
-	return (ret);
-}
 
 t_fixed	relative_y(u_int32_t y, t_cub *cub)
 {
@@ -35,6 +23,7 @@ t_fixed	relative_y(u_int32_t y, t_cub *cub)
 	ret += cub->p->p.y / 2;
 	return (ret);
 }
+
 t_fixed	abs_x(u_int32_t x, t_cub *cub)
 {
 	t_fixed	ret;
@@ -57,12 +46,11 @@ t_fixed	abs_y(u_int32_t y, t_cub *cub)
 	return (ret);
 }
 
-
 void	minimap(t_cub	*cub)
 {
 	u_int32_t	i;
 	u_int32_t	j;
-	t_point	p;
+	t_point		p;
 
 	j = 0;
 	p.plane = cub->map;
@@ -87,7 +75,7 @@ void	static_map(t_cub	*cub)
 {
 	u_int32_t	i;
 	u_int32_t	j;
-	t_point	p;
+	t_point		p;
 
 	j = 0;
 	p.plane = cub->map;

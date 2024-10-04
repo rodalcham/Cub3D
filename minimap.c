@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:02:50 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/23 11:53:37 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/10/04 15:28:58 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	draw_player(t_cub *cub, int map)
 void	draw_mini(t_cub	*cub)
 {
 	int	map;
-	
+
 	if (mlx_is_key_down(cub->win, MLX_KEY_M))
 	{
 		map = 1;
