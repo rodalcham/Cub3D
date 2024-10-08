@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:13:14 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/10/04 15:57:22 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:06:51 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,38 +80,6 @@ char	**extract_chars(int fd)
 		free_t(line);
 	return (ret);
 }
-
-// int	extract_grid(t_cub *map, int fd)
-// {
-// 	char	**str;
-// 	int		x;
-// 	int		y;
-
-// 	str = extract_chars(fd);
-// 	if (!str || player_check(str) < 0)
-// 		exit(-1);
-// 	map->map = build_plane(str, 0, 0);
-// 	if (!map->map)
-// 		return (free_chars(str), -1);
-// 	x = -1;
-// 	while (++x < map->map->heigth)
-// 	{
-// 		y = -1;
-// 		while (++y < map->map->width && y < (int)ft_strlen(str[x]))
-// 		{
-// 			if (str[x][y] == '1')
-// 				map->map->grid[y][x] = map->wall;
-// 			else if (str[x][y] == 'N' || str[x][y] == 'E'
-// 				|| str[x][y] == 'E' || str[x][y] == 'W')
-// 			{
-// 				init_player(map, x, y, str[x][y]);
-// 				if (copy_map(str, x, y) < 1)
-// 					exit(-1);
-// 			}
-// 		}
-// 	}
-// 	return (0);
-// }
 
 int	extract_grid(t_cub *map, int fd)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:12:11 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/24 11:33:31 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/10/05 16:28:40 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,32 @@ void	key_hook(void *tcub)
 		|| mlx_is_key_down(cub->win, MLX_KEY_D))
 		check_wasd(cub);
 	draw_mini(cub);
+}
+
+void	mouse_move_callback(double xpos, double ypos, void *param)
+{
+	t_cub			*cub;
+	double			sensitivity;
+	double			delta_x;
+	static double	last_x = 0;
+
+	cub = (t_cub *)param;
+	ypos = 0;
+	sensitivity = 0.005;
+	delta_x = xpos - last_x;
+	cub->p->angle += double_to_fixed(delta_x * sensitivity);
+	if (cub->p->angle < int_to_fixed(0))
+	{
+		cub->p->angle += int_to_fixed(360);
+	}
+	if (cub->p->angle >= int_to_fixed(360))
+	{
+		cub->p->angle -= int_to_fixed(360);
+	}
+	last_x = xpos;
+}
+
+void	setup_mouse(t_cub *cub)
+{
+	mlx_cursor_hook(cub->win, mouse_move_callback, cub);
 }

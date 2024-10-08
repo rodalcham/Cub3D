@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/10/04 16:02:41 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:10:35 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define MINICOLOR 0xFFFF00
 # define MINIBACK 0x0000FF
 # define LINECOL 94702
+# define MOUSE_SENSITIVITY 0.005
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -119,6 +120,7 @@ int		load_gun(t_object *object, t_cub *cub);
 void	draw_gun(t_object *object, t_cub *cub);
 void	free_gun(t_object obj, t_cub cub);
 t_fixed	relative_x(u_int32_t x, t_cub *cub);
+void 	setup_mouse(t_cub* cub);
 
 // Raycaster
 t_crash	cast_ray(t_ray ray);
