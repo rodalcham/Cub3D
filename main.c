@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/10/05 16:23:01 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:16:47 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,12 @@ int	main(int argc, char **argv)
 	if (obj_init(&obj, &cub, argv[1]) < 0)
 		return (err("Invalid Map.\n"), destroy_plane(cub.map), link_free(), 1);
 	init_mlx(&cub);
-	setup_mouse(&cub);
+	// setup_mouse(&cub);
 	draw_background(&cub, 42424, 4265367);
 	load_gun(&obj, &cub);
 	draw_gun(&obj, &cub);
 	mlx_loop_hook(cub.win, key_hook, &cub);
+	mlx_cursor_hook(cub.win, cur_hook, &cub);
 	mlx_loop(cub.win);
 	free_gun(obj, cub);
 	destroy_cub(&cub);

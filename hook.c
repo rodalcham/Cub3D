@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:12:11 by rchavez           #+#    #+#             */
-/*   Updated: 2024/10/05 16:28:40 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:14:36 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ void	check_wasd(t_cub *cub)
 void	key_hook(void *tcub)
 {
 	static t_cub	*cub = NULL;
-
-	if (!frame_function())
-		return ;
+	
 	if (!cub)
 		cub = (t_cub *)tcub;
+	if (!frame_function())
+		return ;
 	if (mlx_is_key_down(cub->win, MLX_KEY_ESCAPE))
 		mlx_close_window(cub->win);
 	if (mlx_is_key_down(cub->win, MLX_KEY_RIGHT)
@@ -105,30 +105,30 @@ void	key_hook(void *tcub)
 	draw_mini(cub);
 }
 
-void	mouse_move_callback(double xpos, double ypos, void *param)
+void	cur_hook(double xpos, double ypos, void *tcub)
 {
-	t_cub			*cub;
-	double			sensitivity;
-	double			delta_x;
-	static double	last_x = 0;
+	static t_cub *cub = NULL;
+	static t_fixed	delta = 0;
+	int				i;
 
-	cub = (t_cub *)param;
-	ypos = 0;
-	sensitivity = 0.005;
-	delta_x = xpos - last_x;
-	cub->p->angle += double_to_fixed(delta_x * sensitivity);
-	if (cub->p->angle < int_to_fixed(0))
+	i = -1;
+	if (!delta)
+		delta = f_div(int_to_fixed(FOV), int_to_fixed(RAY_NBR));
+	if (!cub)
+		cub = (t_cub *)tcub;
+	// if (!frame_function())
+	// 	return ;
+	if (xpos > WIDTH / 2)
 	{
-		cub->p->angle += int_to_fixed(360);
+		cub->p->angle = normalize(cub->p->angle + int_to_fixed(TURN));
 	}
-	if (cub->p->angle >= int_to_fixed(360))
+	else if (xpos < WIDTH / 2)
 	{
-		cub->p->angle -= int_to_fixed(360);
+		cub->p->angle = normalize(cub->p->angle - int_to_fixed(TURN));
 	}
-	last_x = xpos;
-}
-
-void	setup_mouse(t_cub *cub)
-{
-	mlx_cursor_hook(cub->win, mouse_move_callback, cub);
+	if (ypos)
+		ypos = 0;
+	while (++i < RAY_NBR)
+		cub->p->view[i].angle = normalize(cub->p->angle + f_mult(delta, int_to_fixed(i - RAY_NBR / 2)));
+	mlx_set_mouse_pos(cub->win, WIDTH / 2, HEIGHT / 2);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/10/05 16:10:35 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:14:57 by rchavez@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int		load_gun(t_object *object, t_cub *cub);
 void	draw_gun(t_object *object, t_cub *cub);
 void	free_gun(t_object obj, t_cub cub);
 t_fixed	relative_x(u_int32_t x, t_cub *cub);
-void 	setup_mouse(t_cub* cub);
+// void 	setup_mouse(t_cub* cub);
 
 // Raycaster
 t_crash	cast_ray(t_ray ray);
@@ -144,5 +144,6 @@ void	minimap(t_cub	*cub);
 void	static_map(t_cub	*cub);
 void	draw_background(t_cub *cub, uint32_t cei, uint32_t flo);
 void	err(char *str);
+void	cur_hook(double xpos, double ypos, void *param);
 
 #endif
