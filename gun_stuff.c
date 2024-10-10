@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 14:43:23 by mbankhar          #+#    #+#             */
-/*   Updated: 2024/10/08 12:10:44 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:43:20 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	load_gun(t_object *object, t_cub *cub)
 {
-	object->gun_texture = mlx_load_png("./textures/gun1asdsd.png");
+	object->gun_texture = mlx_load_png("./textures/gun1.png");
 	if (!object->gun_texture)
 	{
 		write (2, "Error loading gun\n", 28);
@@ -31,11 +31,11 @@ int	load_gun(t_object *object, t_cub *cub)
 
 void	draw_gun(t_object *object, t_cub *cub)
 {
-	if (!object->gun_texture)
-		return ;
 	int	gun_x;
 	int	gun_y;
 
+	if (!object->gun_texture)
+		return ;
 	gun_x = (1200 / 2) - (object->gun_image->width / 2);
 	gun_y = 800 - object->gun_image->height;
 	mlx_image_to_window(cub->win, object->gun_image, gun_x, gun_y);

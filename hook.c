@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:12:11 by rchavez           #+#    #+#             */
-/*   Updated: 2024/10/10 11:14:36 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/10/10 14:46:42 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	check_wasd(t_cub *cub)
 void	key_hook(void *tcub)
 {
 	static t_cub	*cub = NULL;
-	
+
 	if (!cub)
 		cub = (t_cub *)tcub;
 	if (!frame_function())
@@ -103,32 +103,4 @@ void	key_hook(void *tcub)
 		|| mlx_is_key_down(cub->win, MLX_KEY_D))
 		check_wasd(cub);
 	draw_mini(cub);
-}
-
-void	cur_hook(double xpos, double ypos, void *tcub)
-{
-	static t_cub *cub = NULL;
-	static t_fixed	delta = 0;
-	int				i;
-
-	i = -1;
-	if (!delta)
-		delta = f_div(int_to_fixed(FOV), int_to_fixed(RAY_NBR));
-	if (!cub)
-		cub = (t_cub *)tcub;
-	// if (!frame_function())
-	// 	return ;
-	if (xpos > WIDTH / 2)
-	{
-		cub->p->angle = normalize(cub->p->angle + int_to_fixed(TURN));
-	}
-	else if (xpos < WIDTH / 2)
-	{
-		cub->p->angle = normalize(cub->p->angle - int_to_fixed(TURN));
-	}
-	if (ypos)
-		ypos = 0;
-	while (++i < RAY_NBR)
-		cub->p->view[i].angle = normalize(cub->p->angle + f_mult(delta, int_to_fixed(i - RAY_NBR / 2)));
-	mlx_set_mouse_pos(cub->win, WIDTH / 2, HEIGHT / 2);
 }

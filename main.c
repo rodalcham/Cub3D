@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez@student.42heilbronn.de <rchavez    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/10/10 11:16:47 by rchavez@stu      ###   ########.fr       */
+/*   Updated: 2024/10/10 14:45:45 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	init_mlx(t_cub *cub)
 
 void	check_leaks(void)
 {
-	system("leaks Cub3d");
+	system("leaks Cub3D");
 }
 
 int	main(int argc, char **argv)
@@ -94,7 +94,6 @@ int	main(int argc, char **argv)
 	if (obj_init(&obj, &cub, argv[1]) < 0)
 		return (err("Invalid Map.\n"), destroy_plane(cub.map), link_free(), 1);
 	init_mlx(&cub);
-	// setup_mouse(&cub);
 	draw_background(&cub, 42424, 4265367);
 	load_gun(&obj, &cub);
 	draw_gun(&obj, &cub);
