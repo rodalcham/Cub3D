@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/10/10 14:45:45 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:18:09 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,42 @@ void	init_mlx(t_cub *cub)
 		mlx_exit(cub);
 }
 
-void	check_leaks(void)
+// void	check_leaks(void)
+// {
+// 	system("leaks Cub3D");
+// }
+
+uint32_t	convert_color(char *str)
 {
-	system("leaks Cub3D");
+	uint32_t		final_number;
+	int				array[3];
+	char			**split;
+	int				i;
+
+	if (!str)
+		exit (1);
+	i = 0;
+	final_number = 0;
+	split = ft_split(str, ',');
+	while (i < 3)
+	{
+		array[i] = ft_atoi(split[i]);
+		i++;
+	}
+	final_number |= (array[2] & 0xFF);
+	final_number |= ((array[1] & 0xFF) << 8);
+	final_number |= ((array[0] & 0xFF) << 16);
+	final_number = (final_number << 8) | 255;
+	return (final_number);
 }
 
+	// atexit(check_leaks);
 int	main(int argc, char **argv)
 {
 	t_cub		cub;
 	t_object	obj;
 	t_player	p;
 
-	atexit(check_leaks);
 	cub.wall = &obj;
 	cub.p = &p;
 	cub.win = NULL;
@@ -94,7 +118,7 @@ int	main(int argc, char **argv)
 	if (obj_init(&obj, &cub, argv[1]) < 0)
 		return (err("Invalid Map.\n"), destroy_plane(cub.map), link_free(), 1);
 	init_mlx(&cub);
-	draw_background(&cub, 42424, 4265367);
+	draw_background(&cub, convert_color(obj.floor), convert_color(obj.ceiling));
 	load_gun(&obj, &cub);
 	draw_gun(&obj, &cub);
 	mlx_loop_hook(cub.win, key_hook, &cub);
