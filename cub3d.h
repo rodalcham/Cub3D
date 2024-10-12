@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/10/10 14:47:02 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:32:26 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # define TURN 2
 # define STEP 0.05
 
-# define MINICOLOR 0xFFFF00
-# define MINIBACK 0x0000FF
+# define MINICOLOR 858993663
+# define MINIBACK 2155905279
 # define LINECOL 94702
 # define MOUSE_SENSITIVITY 0.005
 

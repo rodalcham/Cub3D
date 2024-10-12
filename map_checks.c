@@ -6,7 +6,7 @@
 /*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:10:45 by mbankhar          #+#    #+#             */
-/*   Updated: 2024/10/04 16:01:08 by mbankhar         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:20:06 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	player_check(char **map)
 			if (map[x][y] == 'N' || map[x][y] == 'S' || map[x][y] == 'E' ||
 			map[x][y] == 'W')
 				player_count++;
+			else if (map[x][y] == 'V')
+				return (-1);
 		}
 	}
 	if (player_count != 1)
@@ -72,6 +74,11 @@ int	flood_fill2(char **map, int x, int y)
 
 	rows = strnum(map);
 	cols = maxlen(map);
+	if (rows > 35 || cols > 55)
+	{
+		printf("Invalid mapsize\n");
+		exit(1);
+	}
 	if (x < 0 || y < 0 || x >= rows || y >= cols
 		|| map[x][y] == '1' || map[x][y] == 'V')
 		return (1);
