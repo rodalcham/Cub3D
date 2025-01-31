@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 11:36:45 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/10/21 14:51:25 by mbankhar         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2025/01/31 13:29:05 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "cub3d.h"
 
@@ -105,6 +106,7 @@ int	main(int argc, char **argv)
 	t_cub		cub;
 	t_object	obj;
 	t_player	p;
+	t_player	p;
 
 	cub.wall = &obj;
 	cub.p = &p;
@@ -121,9 +123,25 @@ int	main(int argc, char **argv)
 	draw_background(&cub, convert_color(obj.floor), convert_color(obj.ceiling));
 	load_gun(&obj, &cub);
 	draw_gun(&obj, &cub);
+	cub.win = NULL;
+	cub.img[0] = NULL;
+	cub.img[1] = NULL;
+	cub.img[2] = NULL;
+	cub.map = NULL;
+	if (argc != 2)
+		return (err("Incorrect number of arguments.\n"), 1);
+	if (obj_init(&obj, &cub, argv[1]) < 0)
+		return (err("Invalid Map.\n"), destroy_plane(cub.map), link_free(), 1);
+	init_mlx(&cub);
+	draw_background(&cub, convert_color(obj.floor), convert_color(obj.ceiling));
+	load_gun(&obj, &cub);
+	draw_gun(&obj, &cub);
 	mlx_loop_hook(cub.win, key_hook, &cub);
 	mlx_cursor_hook(cub.win, cur_hook, &cub);
+	mlx_cursor_hook(cub.win, cur_hook, &cub);
 	mlx_loop(cub.win);
+	free_gun(obj, cub);
+	destroy_cub(&cub);
 	free_gun(obj, cub);
 	destroy_cub(&cub);
 }
