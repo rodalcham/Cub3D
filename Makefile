@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/23 11:29:41 by rchavez@stu       #+#    #+#              #
-#    Updated: 2024/09/19 11:16:53 by rchavez          ###   ########.fr        #
+#    Updated: 2024/10/21 14:44:02 by mbankhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,11 +34,11 @@ PLANE = $(PLANE_F)/plane.a
 LIBFT = $(LIBFT_F)/libft.a
 
 CFILES = main.c maps.c maps_fill.c player.c rays.c hook.c minimap.c utils.c\
-	textures.c object.c
+	textures.c object.c map_checks.c mini_2.c gun_stuff.c
 
 OFILES = $(CFILES:%.c=$(O_F)/%.o)
 
-all : $(NAME)
+all : submodule_init_update $(NAME)
 
 $(NAME) : $(MLX) $(LIBFT) $(PLANE) $(OFILES)
 	$(CC) $(CFLAGS) -o $(NAME) $(LFLAGS) $(MLX) $(OFILES) $(LIBFT) $(PLANE)
@@ -72,6 +72,11 @@ $(O_F) :
 $(MLXLIB) :
 	@touch .gitmodules
 	@git submodule add -f https://github.com/codam-coding-college/MLX42.git
+
+submodule_init_update: $(MLXLIB)
+	@git submodule init
+	@git submodule update
+	cd $(MLXLIB) && git checkout 4c275721d0de1a9c514c857c29e9dd235d874591
 
 clean :
 	@rm -fr $(O_F)

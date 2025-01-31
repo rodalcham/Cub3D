@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 11:16:26 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/19 11:17:06 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/10/04 10:02:54 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ int	obj_init(t_object *obj, t_cub *cub, char *path)
 	obj->south = NULL;
 	obj->east = NULL;
 	obj->west = NULL;
+	obj->north_texture = NULL;
+	obj->south_texture = NULL;
+	obj->east_texture = NULL;
+	obj->west_texture = NULL;
+	obj->gun_texture = NULL;
+	obj->gun_image = NULL;
 	if (ft_strlen(path) < 5 || ft_strcmp(&path[ft_strlen(path) - 4], ".cub"))
 		return (-1);
 	fd = open(path, O_RDONLY);
@@ -68,8 +74,12 @@ void	destroy_obj(t_object obj)
 	free_t(obj.east);
 	free_t(obj.floor);
 	free_t(obj.ceiling);
-	mlx_delete_texture(obj.north_texture);
-	mlx_delete_texture(obj.east_texture);
-	mlx_delete_texture(obj.west_texture);
-	mlx_delete_texture(obj.south_texture);
+	if (obj.north_texture)
+		mlx_delete_texture(obj.north_texture);
+	if (obj.east_texture)
+		mlx_delete_texture(obj.east_texture);
+	if (obj.west_texture)
+		mlx_delete_texture(obj.west_texture);
+	if (obj.south_texture)
+		mlx_delete_texture(obj.south_texture);
 }

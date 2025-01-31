@@ -6,25 +6,11 @@
 /*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:13:14 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/19 11:22:30 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/10/21 12:25:52 by rchavez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	size_t	i;
-
-	if (!s1 && !s2)
-		return (0);
-	if (!s1 || !s2)
-		return (1);
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
-}
 
 void	free_chars(char **chars)
 {
@@ -98,15 +84,29 @@ char	**extract_chars(int fd)
 int	extract_grid(t_cub *map, int fd)
 {
 	char	**str;
-	int		x;
-	int		y;
 
 	str = extract_chars(fd);
-	if (!str)
-		return (-1);
+	if (!str || player_check(str) < 0)
+	{
+		err("Wrong Player count or map.\n");
+		exit(-1);
+	}
 	map->map = build_plane(str, 0, 0);
 	if (!map->map)
 		return (free_chars(str), -1);
+	if (extract_grid2(map, str) < 0)
+	{
+		free_chars(str);
+		return (-1);
+	}
+	return (0);
+}
+
+int	extract_grid2(t_cub *map, char **str)
+{
+	int	x;
+	int	y;
+
 	x = -1;
 	while (++x < map->map->heigth)
 	{
@@ -116,8 +116,12 @@ int	extract_grid(t_cub *map, int fd)
 			if (str[x][y] == '1')
 				map->map->grid[y][x] = map->wall;
 			else if (str[x][y] == 'N' || str[x][y] == 'E'
-				|| str[x][y] == 'E' || str[x][y] == 'W')
+					|| str[x][y] == 'S' || str[x][y] == 'W')
+			{
 				init_player(map, x, y, str[x][y]);
+				if (copy_map(str, x, y) < 1)
+					exit(-1);
+			}
 		}
 	}
 	return (0);

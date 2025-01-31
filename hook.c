@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:12:11 by rchavez           #+#    #+#             */
-/*   Updated: 2024/09/19 10:56:29 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/10/10 14:46:42 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,10 @@ void	check_wasd(t_cub *cub)
 
 void	key_hook(void *tcub)
 {
-	t_cub	*cub;
+	static t_cub	*cub = NULL;
 
-	cub = (t_cub *)tcub;
+	if (!cub)
+		cub = (t_cub *)tcub;
 	if (!frame_function())
 		return ;
 	if (mlx_is_key_down(cub->win, MLX_KEY_ESCAPE))

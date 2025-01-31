@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 21:02:50 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2024/09/19 11:25:01 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/10/05 16:29:43 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	draw_block(t_cub *cub, int i, int j, unsigned int c)
-{
-	int	bwidth;
-	int	bheigth;
-	int	a;
-	int	b;
-
-	bwidth = cub->img[0]->width / cub->map->width;
-	bheigth = cub->img[0]->height / cub->map->heigth;
-	b = bheigth * i;
-	while (b < (bheigth * (i + 1)))
-	{
-		a = bwidth * j;
-		while (a < (bwidth * (j + 1)))
-		{
-			mlx_put_pixel(cub->img[0], a, b, c);
-			a++;
-		}
-		b++;
-	}
-}
 
 void	draw_pixels(t_cub *cub, int x[2], int y[2], int delta[2])
 {
@@ -48,7 +26,7 @@ void	draw_pixels(t_cub *cub, int x[2], int y[2], int delta[2])
 	err[0] = delta[0] - delta[1];
 	while (x[0] != x[1] || y[0] != y[1])
 	{
-		mlx_put_pixel(cub->img[0], x[0], y[0], 94702);
+		mlx_put_pixel(cub->img[0], x[0], y[0], LINECOL);
 		err[1] = err[0] * 2;
 		if (err[1] > -1 * delta[1])
 		{
@@ -78,7 +56,7 @@ void	draw_line(t_cub *cub, t_point src, t_point dst)
 	draw_pixels(cub, x, y, delta);
 }
 
-void	draw_player(t_cub *cub)
+void	draw_player(t_cub *cub, int map)
 {
 	t_point	p[4];
 	t_crash	x;
@@ -99,27 +77,44 @@ void	draw_player(t_cub *cub)
 	while (++i < RAY_NBR)
 	{
 		x = cast_ray(cub->p->view[i]);
-		draw_line(cub, cub->p->p, x.p);
+		if (map)
+			draw_line(cub, cub->p->p, x.p);
 		draw_walls(x, *cub, i, cub->p->view[i].angle - cub->p->angle);
 	}
 }
 
 void	draw_mini(t_cub	*cub)
 {
+	int	map;
+
+	if (mlx_is_key_down(cub->win, MLX_KEY_M))
+	{
+		map = 1;
+		static_map(cub);
+	}
+	else
+	{
+		map = 0;
+		minimap(cub);
+	}
+	draw_player(cub, map);
+}
+
+void	draw_background(t_cub *cub, uint32_t cei, uint32_t flo)
+{
 	int	i;
 	int	j;
 
 	i = -1;
-	while (++i < cub->map->heigth)
+	while (++i < WIDTH)
 	{
 		j = -1;
-		while (++j < cub->map->width)
+		while (++j < HEIGHT)
 		{
-			if (cub->map->grid[j][i])
-				draw_block(cub, i, j, 42424242);
+			if (j < (HEIGHT / 2))
+				mlx_put_pixel(cub->img[2], i, j, cei);
 			else
-				draw_block(cub, i, j, 42);
+				mlx_put_pixel(cub->img[2], i, j, flo);
 		}
 	}
-	draw_player(cub);
 }
