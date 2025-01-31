@@ -3,13 +3,12 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2025/01/31 13:29:23 by rchavez          ###   ########.fr        #
+#    Created: 2024/07/23 11:29:41 by rchavez@stu       #+#    #+#              #
+#    Updated: 2024/10/21 14:44:02 by mbankhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 NAME = Cub3D
 
@@ -36,11 +35,9 @@ LIBFT = $(LIBFT_F)/libft.a
 
 CFILES = main.c maps.c maps_fill.c player.c rays.c hook.c minimap.c utils.c\
 	textures.c object.c map_checks.c mini_2.c gun_stuff.c
-	textures.c object.c map_checks.c mini_2.c gun_stuff.c
 
 OFILES = $(CFILES:%.c=$(O_F)/%.o)
 
-all : submodule_init_update $(NAME)
 all : submodule_init_update $(NAME)
 
 $(NAME) : $(MLX) $(LIBFT) $(PLANE) $(OFILES)
@@ -97,4 +94,3 @@ debug: CFLAGS += -g -fsanitize=address -DDEBUG=1
 debug: re
 
 .PHONY : all, clean, fclean, re, debug
-

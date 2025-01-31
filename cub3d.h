@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchavez <rchavez@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mbankhar <mbankhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:51:48 by rchavez@stu       #+#    #+#             */
-/*   Updated: 2025/01/31 13:28:57 by rchavez          ###   ########.fr       */
+/*   Updated: 2024/10/21 14:53:06 by mbankhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 #  define DEBUG 0
 # endif
 
-# define HEIGHT 800
-# define WIDTH 1200
 # define HEIGHT 800
 # define WIDTH 1200
 # define FOV 70
@@ -77,8 +75,6 @@ typedef struct s_object
 	mlx_texture_t	*west_texture;
 	mlx_texture_t	*gun_texture;
 	mlx_image_t		*gun_image;
-	mlx_texture_t	*gun_texture;
-	mlx_image_t		*gun_image;
 }				t_object;
 /** Our Cub3D Struct
  * @param WIN A pointer to the window
@@ -114,7 +110,6 @@ typedef struct crash_s
 int		obj_init(t_object *obj, t_cub *cub, char *path);
 int		extract_grid(t_cub *map, int fd);
 int		extract_grid2(t_cub *map, char **str);
-int		extract_grid2(t_cub *map, char **str);
 int		ft_strcmp(char *s1, char *s2);
 int		load_textures(t_object *object);
 void	free_chars(char **chars);
@@ -136,20 +131,11 @@ void	key_hook(void *cub);
 int		player_access(t_fixed x, t_fixed y, t_plane *plane);
 int		frame_function(void);
 void	cur_hook(double xpos, double ypos, void *tcub);
-void	cur_hook(double xpos, double ypos, void *tcub);
 
 void	pcopy(t_point *dst, t_point src);
 int		is_spc(int c);
 int		line_fill(char *line, t_object *obj);
 int		validate_textures(t_object *obj);
-int		player_check(char **map);
-int		copy_map(char **map, int x, int y);
-int		flood_fill2(char **map, int x, int y);
-void	minimap(t_cub	*cub);
-void	static_map(t_cub	*cub);
-void	draw_background(t_cub *cub, uint32_t cei, uint32_t flo);
-void	err(char *str);
-void	cur_hook(double xpos, double ypos, void *param);
 int		player_check(char **map);
 int		copy_map(char **map, int x, int y);
 int		flood_fill2(char **map, int x, int y);
